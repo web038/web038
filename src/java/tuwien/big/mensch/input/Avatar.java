@@ -1,5 +1,4 @@
-package at.ac.big.tuwien.ewa.picasa;
-
+package tuwien.big.mensch.input;
 /**
  * Used to represent an avator in the BIG game
  * @author pl

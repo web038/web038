@@ -1,4 +1,4 @@
-package at.ac.big.tuwien.ewa.picasa;
+package tuwien.big.mensch.input;
 
 import java.util.List;
 
