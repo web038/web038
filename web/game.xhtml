@@ -1,0 +1,139 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:mc="http://java.sun.com/jsf/composite/mycomponents">
+    <body>
+
+        <ui:composition template="./template.xhtml">
+
+            <ui:define name="navigation">
+                <h:form>
+                    <ul>
+                        <li><h:commandLink value="#{msg.restart}" action="#{lc.gc.init}"/></li>
+                        <li><h:link outcome="index" value="#{msg.logout} (#{lc.name})"/></li>
+                    </ul>
+                </h:form>
+            </ui:define>
+
+            <ui:define name="content">
+
+                <div id="info_area">
+                    <h2>#{msg.gameinfo}</h2>
+                    <table class="game_info" summary="#{msg.gameinfotable}">
+                        <tbody>
+                            <tr class="accessibility">
+                                <th>#{msg.gameinfoinfo}</th>
+                                <th>#{msg.gameinfovalue}</th>
+                            </tr>
+                            <tr>
+                                <th>#{msg.gaeminfoplayercount}</th>
+                                <td><h:outputText value="#{lc.gc.players.size()}"/></td>
+                            </tr>
+                            <tr>
+                                <th>#{msg.gameinfoleader}</th>
+                                <td>
+                                    <c:if test="#{lc.gc.leader == null}"><h:outputText id="leader" value="#{msg.gameinfoleaderseveral}"/></c:if>
+                                    <c:if test="#{lc.gc.leader != null}"><h:outputText id="leader" value="#{lc.gc.leader.name}"/></c:if>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>#{msg.gameinforound}</th>
+                                <td><h:outputText id="round" value="#{lc.gc.round}"/></td>
+                            </tr>
+                            <tr>
+                                <th>#{msg.gameinfotime}</th>
+                                <td><h:outputText id="time" value="#{lc.gc.time}"/></td>
+                            </tr>
+                        </tbody>
+
+                    </table>
+
+                    <h2>#{msg.players}</h2>
+                    <table class="game_info" summary="#{msg.playerstable}">
+                        <tbody>
+                            <tr class="accessibility">
+                                <th>#{msg.playersnumber}</th>
+                                <th>#{msg.playersname}</th>
+                            </tr>
+                            <ui:repeat value="#{lc.gc.players}" var="player1" >
+                                <tr>
+                                    <th>#{msg.player} #{lc.gc.players.indexOf(player1)+1}</th>
+                                    <td>#{player1.name}</td>
+                                </tr>
+                            </ui:repeat>
+                        </tbody>
+                    </table>
+                </div>
+                <div id="dicearea">
+                    <hr class="accessibility" />
+                    <h2 class="accessibility">#{msg.dice}</h2>
+                    #{lc.gc.player.name}
+                    <h:form>
+                        <c:if test="#{lc.gc.gameOver == false}">
+                            <h:commandLink id="rollDiceCommand" action="#{lc.gc.rollDice()}">
+                                <h:graphicImage id="dice" title="#{msg.dicescore} #{lc.gc.score}" name="../img/wuerfel#{lc.gc.score}.png" alt="#{msg.dicescore} #{lc.gc.score}"/>
+                                <f:ajax render="dice :round :leader :time :board"/>
+                            </h:commandLink>
+                        </c:if>
+                        <c:if test="#{lc.gc.gameOver == true}">
+                            <h:graphicImage id="dice" title="#{msg.dicescore} #{lc.gc.score}" name="../img/wuerfel#{lc.gc.score}.png" alt="#{msg.dicescore} #{lc.gc.score}"/>
+                        </c:if>
+                    </h:form>
+                </div>
+                <div id="play_area">
+                    <hr class="accessibility" />
+                    <h:panelGroup layout="block" id="board">
+                        <h2 class="accessibility">Spielbrett</h2>
+                        <div class="fields">
+                            <h3 class="accessibility">Spielfelder</h3>
+                            <ol title="Spielfelder">
+                                <c:forEach begin="1" end="40" varStatus="fieldNr">
+                                    <mc:field fieldnumber="#{fieldNr.index}" player="#{lc.gc.boardFields.get(fieldNr.index-1).occupyingPlayer}" fieldcolor="-1" startingsquare="false" homebase="false"/>
+                                </c:forEach>
+                            </ol>
+                            <h3 class="accessibility">Starth&auml;user</h3>
+                            <c:forEach begin="1" end="4" varStatus="playernumber">
+                                <ol title="Starthaus Spieler #{playernumber.index}">
+                                    <mc:field fieldnumber="#{41+(playernumber.index-1)*4}" player="#{lc.gc.boardFields.get(41+(playernumber.index-1)*4-1).occupyingPlayer}" fieldcolor="#{playernumber.index}" startingsquare="true" homebase="false"/>
+                                    <mc:field fieldnumber="#{42+(playernumber.index-1)*4}" player="#{lc.gc.boardFields.get(42+(playernumber.index-1)*4-1).occupyingPlayer}" fieldcolor="#{playernumber.index}" startingsquare="true" homebase="false"/>
+                                    <mc:field fieldnumber="#{43+(playernumber.index-1)*4}" player="#{lc.gc.boardFields.get(43+(playernumber.index-1)*4-1).occupyingPlayer}" fieldcolor="#{playernumber.index}" startingsquare="true" homebase="false"/>
+                                    <mc:field fieldnumber="#{44+(playernumber.index-1)*4}" player="#{lc.gc.boardFields.get(44+(playernumber.index-1)*4-1).occupyingPlayer}" fieldcolor="#{playernumber.index}" startingsquare="true" homebase="false"/>
+                                </ol>
+                            </c:forEach>
+
+                            <h3 class="accessibility">Zielh&auml;user</h3> 
+                            <c:forEach begin="1" end="4" varStatus="playernumber">
+                                <ol title="Zielhaus Spieler #{playernumber.index}">
+                                    <mc:field fieldnumber="#{57+(playernumber.index-1)*4}" player="#{lc.gc.boardFields.get(57+(playernumber.index-1)*4-1).occupyingPlayer}" fieldcolor="#{playernumber.index}" startingsquare="false" homebase="true"/>
+                                    <mc:field fieldnumber="#{58+(playernumber.index-1)*4}" player="#{lc.gc.boardFields.get(58+(playernumber.index-1)*4-1).occupyingPlayer}" fieldcolor="#{playernumber.index}" startingsquare="false" homebase="true"/>
+                                    <mc:field fieldnumber="#{59+(playernumber.index-1)*4}" player="#{lc.gc.boardFields.get(59+(playernumber.index-1)*4-1).occupyingPlayer}" fieldcolor="#{playernumber.index}" startingsquare="false" homebase="true"/>
+                                    <mc:field fieldnumber="#{60+(playernumber.index-1)*4}" player="#{lc.gc.boardFields.get(60+(playernumber.index-1)*4-1).occupyingPlayer}" fieldcolor="#{playernumber.index}" startingsquare="false" homebase="true"/>
+                                </ol>
+                            </c:forEach>
+
+                        </div>
+                        <div class="clearer"></div>
+
+                        <c:if test="#{lc.gc.opponentScore == null}">
+                            <div id="infogegner">#{msg.scoreplayer2} #{lc.gc.computeropponent.name}:</div>
+                        </c:if>
+                        <c:if test="#{lc.gc.opponentScore != null}">
+                            <div id="infogegner">
+                                <c:if test="#{lc.gc.opponentScore.size()==0}">
+                                    <h:outputText id="opponentscore" value="#{msg.scoreplayer2} #{lc.gc.computeropponent.name}: -"/>
+                                </c:if>
+                                <c:if test="#{lc.gc.opponentScore.size()>0}">
+                                    <h:outputText id="opponentscore" value="#{msg.scoreplayer2} #{lc.gc.computeropponent.name}: #{lc.gc.opponentScore}"/>
+                                </c:if>
+                            </div>
+                        </c:if>
+                    </h:panelGroup>
+                </div>
+            </ui:define>
+        </ui:composition>
+    </body>
+</html>
