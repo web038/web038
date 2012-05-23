@@ -61,7 +61,7 @@ public class LoginControl {
             if(gc==null){
                 gc = new GameControl(player.getName());
             }else{
-                this.gc.addPlayer(player.getName());
+                this.gc.addPlayer(player.getName()); 
             }
 
             return "game";

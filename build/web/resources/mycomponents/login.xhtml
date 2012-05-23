@@ -4,7 +4,7 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:composite="http://java.sun.com/jsf/composite">
+      xmlns:composite="http://java.sun.com/jsf/composite"
       xmlns:ice="http://www.icesoft.com/icefaces/component">
 
     <!-- INTERFACE -->
@@ -16,14 +16,14 @@
 
     <!-- IMPLEMENTATION -->
     <composite:implementation>
-        <h:form>
+        <ice:form>
             <h:panelGrid>
-                <h:outputLabel value="#{msg.name}" for="name"/>
-                <h:inputText id="name" value="#{cc.attrs.name}"/>
-                <h:outputLabel value="#{msg.password}"  for="password"/>
-                <h:inputSecret id="password" value="#{cc.attrs.password}"/>
-                <h:commandButton value="#{msg.login}" action="#{cc.attrs.action}"/>
+                <ice:outputLabel value="#{msg.name}" for="name"/>
+                <ice:inputText id="name" value="#{cc.attrs.name}"/>
+                <ice:outputLabel value="#{msg.password}"  for="password"/>
+                <ice:inputSecret id="password" value="#{cc.attrs.password}"/>
+                <ice:commandButton value="#{msg.login}" action="#{cc.attrs.action}"/>
             </h:panelGrid>
-        </h:form>
+        </ice:form>
     </composite:implementation>
 </html>
