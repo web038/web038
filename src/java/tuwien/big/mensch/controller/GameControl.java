@@ -45,6 +45,16 @@ public class GameControl implements Serializable{
     public int getNextPlayerIndex() {
         return (playerlist.isEmpty() ? 0 : playerlist.size() + 1 );
     }
+    
+            public void addPlayer(String playername){
+            System.out.println(playerlist.size()); 
+        if(playerlist.size()<2){
+            playerlist.add(new Player(playername));
+            PushRenderer.addCurrentSession(PUSH_GROUP);
+            PushRenderer.render(PUSH_GROUP);
+            init(); 
+        }
+        }
 
     /*
     public GameControl(String playername) {
@@ -65,15 +75,6 @@ public class GameControl implements Serializable{
         }
     }
         
-        public void addPlayer(String playername){
-            System.out.println(playerlist.size()); 
-        if(playerlist.size()<2){
-            playerlist.add(new Player(playername));
-            PushRenderer.addCurrentSession(PUSH_GROUP);
-            PushRenderer.render(PUSH_GROUP);
-            init(); 
-        }
-        }
 
     /**
      * Initializes a new game

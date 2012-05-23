@@ -61,9 +61,8 @@ public class LoginControl {
             if(gc==null){
                 gc = new GameControl(player.getName());
             }else{
-                this.gc.addPlayer(player.getName()); 
+                this.getGc().addPlayer(player.getName());
             }
-
             return "game";
         } else {
             setShowloginfailed(true);
