@@ -1,0 +1,4 @@
+news.
+hier könnten wir eine art entwickler tagebuch führen, habt ihr lust?
+das hält die anderen dann up2date. andererseits haben wir da eh auch die logs von den commits.
+

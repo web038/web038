@@ -29,6 +29,17 @@ public class LoginControl {
     private String name;
     
     private String password;
+    
+    // index in the game
+    private int index;
+
+    public int getIndex() {
+        return index;
+    }
+
+    public void setIndex(int index) {
+        this.index = index;
+    }
 
     /** Creates a new instance of LoginControl */
     public LoginControl() {
@@ -131,11 +142,12 @@ public class LoginControl {
     public GameControl getGc() {
         return gc;
     }
-
+  
     /**
      * @param mc the mc to set
      */
     public void setGc(GameControl gc) {
         this.gc = gc;
+        this.index=this.gc.getNextPlayerIndex();
     }
 }
