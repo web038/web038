@@ -8,6 +8,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import tuwien.big.mensch.entities.Player;
+import tuwien.big.mensch.controller.GameControl;
 import tuwien.big.mensch.entities.RegisteredPlayerPool;
 
 @ManagedBean(name = "lc")
@@ -22,7 +23,7 @@ public class LoginControl {
     
     @ManagedProperty(value = "#{gc}")
     private GameControl gc;
-    
+        
     @ManagedProperty(value = "false")
     private boolean showloginfailed;
     
@@ -46,18 +47,22 @@ public class LoginControl {
     }
 
     public String login() {
-        /*
+        
         System.out.println("Login Data:");
         System.out.println(name);
         System.out.println(password);
-        
-        */
         
         player = getRpp().getRegisteredPlayer(name, password);
         if (player != null) {
             setShowloginfailed(false);
 
-            gc = new GameControl(player.getName());
+            System.out.println(gc); 
+            
+            if(gc==null){
+                gc = new GameControl(player.getName());
+            }else{
+                this.gc.addPlayer(player.getName());
+            }
 
             return "game";
         } else {

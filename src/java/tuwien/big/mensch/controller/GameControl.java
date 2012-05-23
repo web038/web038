@@ -9,14 +9,18 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import gameapi.Game;
 import gameapi.Player;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
+import org.icefaces.application.PushRenderer;
 
 @ManagedBean(name = "gc")
 @SessionScoped
-public class GameControl {
+public class GameControl implements Serializable{
 
+    public static final String PUSH_GROUP = "PLAYER_PUSH_GROUP";
+    
     private ArrayList<Player> playerlist;
     private Game game;
     // index of current player (for 2 players: 0 or 1)
@@ -42,6 +46,7 @@ public class GameControl {
         return (playerlist.isEmpty() ? 0 : playerlist.size() + 1 );
     }
 
+    /*
     public GameControl(String playername) {
         if (playerlist.isEmpty()) {
             playerlist.add(new Player(playername));
@@ -51,12 +56,30 @@ public class GameControl {
             init();
         }
 
+    }*/
+    
+        public GameControl(String playername) {
+        if (playerlist.isEmpty()) {
+            playerlist.add(new Player(playername));
+            PushRenderer.addCurrentSession(PUSH_GROUP);
+        }
     }
+        
+        public void addPlayer(String playername){
+            System.out.println(playerlist.size()); 
+        if(playerlist.size()<2){
+            playerlist.add(new Player(playername));
+            PushRenderer.addCurrentSession(PUSH_GROUP);
+            PushRenderer.render(PUSH_GROUP);
+            init(); 
+        }
+        }
 
     /**
      * Initializes a new game
      */
     public void init() {
+        System.out.println("INIT NEW GAME"); 
         // which player shoukd start
         playerIndex=0;
         // start the game
