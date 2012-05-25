@@ -4,13 +4,12 @@ import at.ac.big.tuwien.ewa.picasa.PicasaConnector;
 import java.util.List;
 import java.net.URL;
 
-import com.google.gdata.client.*;
 import com.google.gdata.client.photos.*;
-import com.google.gdata.data.*;
-import com.google.gdata.data.media.*;
 import com.google.gdata.data.photos.*;
 import java.util.ArrayList;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
+import javax.faces.bean.SessionScoped;
 
 /*
  * To change this template, choose Tools | Templates
@@ -23,7 +22,11 @@ import javax.faces.bean.ManagedBean;
  * @author Barbara
  */
 @ManagedBean(name = "pic")
+@SessionScoped
 public class Picasa implements PicasaConnector{
+    
+        @ManagedProperty(value = "#{avatar}")
+    private Avatar avatar;
     
     ArrayList<Avatar> avatars = new ArrayList<Avatar>();
 
@@ -42,7 +45,7 @@ public class Picasa implements PicasaConnector{
     
     @Override
     public List<Avatar> getPhotoURLs() throws Exception {
-        System.out.println("get avatars"); 
+        System.out.println("Getting the avatars"); 
         
         try{
         URL feedUrl = new URL("https://picasaweb.google.com/111420671758947023853/EWA2012"); 
@@ -52,10 +55,10 @@ public class Picasa implements PicasaConnector{
 
         
          for (PhotoEntry photo : feed.getPhotoEntries()) {
-            Avatar a1 = new Avatar();
-            a1.setDescription(photo.getTitle().getPlainText());
-            a1.setUrl(photo.getMediaThumbnails().get(0).getUrl());
-            avatars.add(a1);
+            avatar = new Avatar();
+            avatar.setDescription(photo.getTitle().getPlainText());
+            avatar.setUrl(photo.getMediaThumbnails().get(0).getUrl());
+            avatars.add(avatar);
         }
         }catch(Exception x){
         System.out.println(x.getStackTrace()); 

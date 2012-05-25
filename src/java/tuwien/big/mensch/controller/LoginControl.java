@@ -44,25 +44,20 @@ public class LoginControl {
 
     /** Creates a new instance of LoginControl */
     public LoginControl() {
+        System.out.println("LoginControl constructor"); 
     }
 
     public String login() {
-        
+
         System.out.println("Login Data:");
         System.out.println(name);
         System.out.println(password);
-        
+
         player = getRpp().getRegisteredPlayer(name, password);
+      
         if (player != null) {
             setShowloginfailed(false);
-
-            System.out.println(gc); 
-            
-            if(gc==null){
-                gc = new GameControl(player.getName());
-            }else{
-                this.getGc().addPlayer(player.getName());
-            }
+            gc = new GameControl(player.getName());
             return "game";
         } else {
             setShowloginfailed(true);

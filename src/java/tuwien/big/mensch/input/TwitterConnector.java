@@ -1,5 +1,6 @@
 package tuwien.big.mensch.input;
 
+import at.ac.big.tuwien.ewa.twitter.Score;
 import twitter4j.Status;
 import twitter4j.TwitterException;
 

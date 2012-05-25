@@ -40,41 +40,26 @@ public class GameControl implements Serializable{
      */
     public GameControl() {
     }
-    
+
     // return index of an eventually new player
     public int getNextPlayerIndex() {
-        return (playerlist.isEmpty() ? 0 : playerlist.size() + 1 );
+        return (playerlist.isEmpty() ? 0 : playerlist.size() + 1);
     }
-    
-            public void addPlayer(String playername){
-            System.out.println(playerlist.size()); 
-        if(playerlist.size()<2){
-            playerlist.add(new Player(playername));
-            PushRenderer.addCurrentSession(PUSH_GROUP);
-            PushRenderer.render(PUSH_GROUP);
-            init(); 
-        }
-        }
 
-    /*
+
     public GameControl(String playername) {
         if (playerlist.isEmpty()) {
             playerlist.add(new Player(playername));
+            PushRenderer.addCurrentSession(PUSH_GROUP);
+            PushRenderer.render(PUSH_GROUP);
         }
         if (playerlist.size() == 1) {
             playerlist.add(new Player(playername));
+            PushRenderer.addCurrentSession(PUSH_GROUP);
+            PushRenderer.render(PUSH_GROUP);
             init();
         }
-
-    }*/
-    
-        public GameControl(String playername) {
-        if (playerlist.isEmpty()) {
-            playerlist.add(new Player(playername));
-            PushRenderer.addCurrentSession(PUSH_GROUP);
-        }
-    }
-        
+    }       
 
     /**
      * Initializes a new game
@@ -84,7 +69,7 @@ public class GameControl implements Serializable{
         // which player shoukd start
         playerIndex=0;
         // start the game
-        this.game = new Game(playerlist, true);
+        this.game = new Game(playerlist, false);
         // score beginns with 0
         score = 0;
     }
