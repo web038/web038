@@ -1,13 +1,16 @@
-package at.ac.big.tuwien.ewa.picasa;
+package input;
+
+import javax.annotation.ManagedBean;
+import javax.faces.bean.SessionScoped;
 
 /**
  * Used to represent an avator in the BIG game
  * @author pl
  *
  */
+
 public class Avatar {
-	
-	
+
 	private String url;
 	private String description;
 	

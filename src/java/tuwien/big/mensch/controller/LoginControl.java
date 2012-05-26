@@ -8,7 +8,6 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import tuwien.big.mensch.entities.Player;
-import tuwien.big.mensch.controller.GameControl;
 import tuwien.big.mensch.entities.RegisteredPlayerPool;
 
 @ManagedBean(name = "lc")
@@ -23,41 +22,32 @@ public class LoginControl {
     
     @ManagedProperty(value = "#{gc}")
     private GameControl gc;
-        
+    
     @ManagedProperty(value = "false")
     private boolean showloginfailed;
     
     private String name;
     
     private String password;
-    
-    // index in the game
-    private int index;
-
-    public int getIndex() {
-        return index;
-    }
-
-    public void setIndex(int index) {
-        this.index = index;
-    }
 
     /** Creates a new instance of LoginControl */
     public LoginControl() {
-        System.out.println("LoginControl constructor"); 
     }
 
     public String login() {
-
+        /*
         System.out.println("Login Data:");
         System.out.println(name);
         System.out.println(password);
-
+        
+        */
+        
         player = getRpp().getRegisteredPlayer(name, password);
-      
         if (player != null) {
             setShowloginfailed(false);
+
             gc = new GameControl(player.getName());
+
             return "game";
         } else {
             setShowloginfailed(true);
@@ -141,12 +131,11 @@ public class LoginControl {
     public GameControl getGc() {
         return gc;
     }
-  
+
     /**
      * @param mc the mc to set
      */
     public void setGc(GameControl gc) {
         this.gc = gc;
-        this.index=this.gc.getNextPlayerIndex();
     }
 }

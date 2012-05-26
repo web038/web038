@@ -112,7 +112,6 @@ public class Game {
      */
     public Game(List<Player> player, Boolean computeropponent) {
             // guard illegal arguments
-        System.out.println(computeropponent); 
             if (player.size() < 1) {
                 throw new IllegalArgumentException("At least one player is necessary to play.");
             }

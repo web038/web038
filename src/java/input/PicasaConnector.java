@@ -1,4 +1,4 @@
-package at.ac.big.tuwien.ewa.picasa;
+package input;
 
 import java.util.List;
 
