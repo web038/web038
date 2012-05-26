@@ -6,7 +6,6 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:c="http://java.sun.com/jsp/jstl/core"
       xmlns:mc="http://java.sun.com/jsf/composite/mycomponents">
-      xmlns:ice="http://www.icesoft.com/icefaces/component">
     <body>
 
         <ui:composition template="./template.xhtml">
@@ -70,8 +69,6 @@
                     </table>
                 </div>
                 <div id="dicearea">
-                    <p>#{msg.player} #{lc.gc.players.get(0).getName()} </p>
-                    <p>#{msg.player} #{lc.gc.players.get(1).getName()} </p>
                     <hr class="accessibility" />
                     <h2 class="accessibility">#{msg.dice}</h2>
                     #{lc.gc.player.name}
