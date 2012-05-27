@@ -26,10 +26,10 @@ import javax.faces.bean.SessionScoped;
 @SessionScoped
 public class Picasa implements PicasaConnector{
 
-   private Avatar avatar;
-    
     ArrayList<Avatar> avatars = new ArrayList<Avatar>();
 
+    private Avatar avatar; 
+    
     public ArrayList<Avatar> getAvatars() {
         return avatars;
     }

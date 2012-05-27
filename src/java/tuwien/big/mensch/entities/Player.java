@@ -3,6 +3,7 @@
  */
 package tuwien.big.mensch.entities;
 
+import at.ac.big.tuwien.ewa.picasa.Avatar;
 import java.util.Collections;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
@@ -26,6 +27,10 @@ public class Player {
     private String password = null;
     private String birthday = null;
     private String sex = null;
+    private String avatar = null;
+
+
+        
     /**
      * Sequence of fields in the game the player has to cover
      */
@@ -155,5 +160,13 @@ public class Player {
      */
     public void setSex(String sex) {
         this.sex = sex;
+    }
+    
+        public void setAvatar(Avatar avatar) {
+        this.avatar = avatar;
+    }
+
+    public Avatar getAvatar() {
+        return avatar;
     }
 }
