@@ -4,49 +4,65 @@
  */
 package tuwien.big.mensch.controller;
 
-import gameapi.Field;
+import tuwien.big.mensch.entities.Field;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
-import gameapi.Game;
-import gameapi.Player;
+import tuwien.big.mensch.entities.Game;
+import tuwien.big.mensch.entities.Player;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
+import javax.faces.bean.ApplicationScoped;
+import org.icefaces.application.PushRenderer;
 
 @ManagedBean(name = "gc")
-@SessionScoped
+@ApplicationScoped
 public class GameControl {
     
-    private String playername;
-    private Player player;
-
-    private Player computeropponent;
+    
+    private GameState gamestate=GameState.NEW;
     private Game game;
     private int score = 0;
+    // has game started (true) or is it waiting for more players (false)
+  
+    private int currentPlayerIndex;
+
+    public GameState getGamestate() {
+        return gamestate;
+    }
+
+    public void setGameState(GameState gamestate) {
+        this.gamestate = gamestate;
+    }
     
     /** Creates a new instance of MemoryControl */
     public GameControl() {
     }
 
-    public GameControl(String playername) {
-        this.playername = playername;
-        init();       
+    /**
+     * starts the game
+     */
+    public void startGame(Player player) {
+        this.game.addPlayer(player);
+         PushRenderer.render(Game.GAME_RENDERER_NAME);
+        this.setGameState(GameState.STARTED);
+        this.game.start();
+    }
+/**
+ * has the game started?
+ */
+    public boolean isGameStarted() {
+        return (this.gamestate==GameState.STARTED);
     }
     
     /**
      * Initializes a new game
      */
-    public void init(){
-        List<Player> playerlist = new ArrayList<Player>();
-        
-        player = new Player(this.playername);
-        playerlist.add(player);
-                
-        computeropponent = new Player("Computer");
-        playerlist.add(computeropponent);
-        
-        this.game = new Game(playerlist, true);
+    void init(Player player) {
+        this.game = new Game();
+        this.game.addPlayer(player);
+         PushRenderer.render(Game.GAME_RENDERER_NAME);
         score = 0;
+        this.setGameState(GameState.WAITING);
     }
     
     /**
@@ -128,7 +144,7 @@ public class GameControl {
     public void rollDice(){
         if(isGameOver())
             return;
-        this.score = game.rollthedice(player);
+        this.score = this.game.rollthedice();
     }
     
     /**
@@ -159,20 +175,13 @@ public class GameControl {
     }
     
     /**
-     * Returns the computer opponent
-     * 
-     * @return computer opponent
-     */
-    public Player getComputeropponent() {
-        return computeropponent;
-    }
-
-    /**
      * Returns the player
      * 
      * @return player
      */
-    public Player getPlayer() {
-        return player;
+    public Player getPlayer(int index) {
+        return this.game.getPlayers().get(index);
     }
 }
+
+    

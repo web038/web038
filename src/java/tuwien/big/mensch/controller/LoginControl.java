@@ -1,8 +1,7 @@
 package tuwien.big.mensch.controller;
 
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+ * controls login operations
  */
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
@@ -16,43 +15,51 @@ public class LoginControl {
 
     @ManagedProperty(value = "#{player}")
     private Player player;
-    
     @ManagedProperty(value = "#{rpp}")
     private RegisteredPlayerPool rpp;
-    
     @ManagedProperty(value = "#{gc}")
     private GameControl gc;
-    
     @ManagedProperty(value = "false")
     private boolean showloginfailed;
-    
+    @ManagedProperty(value = "false")   
+    private boolean showwaiting;
     private String name;
-    
     private String password;
 
-    /** Creates a new instance of LoginControl */
+    /**
+     * Creates a new instance of LoginControl
+     */
     public LoginControl() {
     }
 
     public String login() {
         /*
-        System.out.println("Login Data:");
-        System.out.println(name);
-        System.out.println(password);
-        
-        */
-        
+         * System.out.println("Login Data:"); System.out.println(name);
+         * System.out.println(password);
+         *
+         */
+
         player = getRpp().getRegisteredPlayer(name, password);
         if (player != null) {
             setShowloginfailed(false);
+            if (gc.getGamestate() == GameState.NEW ) {
+                gc.init(player);
+                return "wait";
+            } else if (gc.getGamestate() == GameState.WAITING) {
+                gc.startGame(player); // the second player starts the game
+                return "game";
+            }
 
-            gc = new GameControl(player.getName());
+            //gc.addPlayer(player); 
 
-            return "game";
+
+            //gc = new GameControl(player.getName());
+
+
         } else {
             setShowloginfailed(true);
-            return "index";
         }
+        return "index";
     }
 
     /**
@@ -124,6 +131,17 @@ public class LoginControl {
     public void setShowloginfailed(boolean showloginfailed) {
         this.showloginfailed = showloginfailed;
     }
+/**
+ * is game waiting for more players?
+ * @return 
+ */
+    public boolean isShowwaiting() {
+        return showwaiting;
+    }
+
+    public void setShowwaiting(boolean showwaiting) {
+        this.showwaiting = showwaiting;
+    }
 
     /**
      * @return the mc
@@ -137,5 +155,19 @@ public class LoginControl {
      */
     public void setGc(GameControl gc) {
         this.gc = gc;
+    }
+
+    /**
+     * is player 1 already waiting for secnd player?
+     */
+    public String getPlayerWaiting() {
+        System.out.println("getPlayerWaiting, GameState="+this.gc.getGamestate());
+        if (this.gc.getGamestate() == GameState.NEW) {
+            return "Sie sind der 1.Spieler";
+        }
+        if (this.gc.getGamestate() == GameState.WAITING) {
+            return "Spieler " + this.gc.getPlayers().get(0) + " wartet schon auf Sie!";
+        }
+        return "Das Spiel läuft bereits. Warten Sie bis es beendet wurde.";
     }
 }

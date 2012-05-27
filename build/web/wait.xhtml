@@ -12,15 +12,16 @@
         <ui:composition template="./template.xhtml">
             <ui:define name="navigation">
                 <ul>
-                    <li> <h:link value="#{msg.register}" outcome="register"/></li>
+                    <li> <h:link value="aktualisieren" outcome="wait"/></li>
                 </ul>
             </ui:define>
             <ui:define name="content">
-                <mc:login  name="#{lc.name}" password="#{lc.password}" action="#{lc.login()}"/>
-                <ice:outputText value="#{msg.loginfailed}" styleClass="error" rendered="#{lc.showloginfailed}"/>
+                <ice:form>
+                    <ice:commandButton value="Spiel starten." rendered="#{gc.gameStarted}"/>
+                </ice:form>
             </ui:define>
             <ui:define name="notice">
-                <ice:outputText value="#{lc.playerWaiting}"/>
+                Bitte warten Sie hier auf Spieler 2 ...
             </ui:define>
 
         </ui:composition>
