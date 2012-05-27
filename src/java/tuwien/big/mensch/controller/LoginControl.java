@@ -46,6 +46,7 @@ public class LoginControl {
                 gc.init(player);
                 return "wait";
             } else if (gc.getGamestate() == GameState.WAITING) {
+                System.out.println("second player wants to start the game"); 
                 gc.startGame(player); // the second player starts the game
                 return "game";
             }

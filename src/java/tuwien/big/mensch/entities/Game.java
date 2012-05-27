@@ -392,5 +392,6 @@ public class Game implements Serializable{
     public void addPlayer(Player player) {
         this.players.add(player);
         PushRenderer.addCurrentSession(Game.GAME_RENDERER_NAME);
+        System.out.println("this player was added: "+player.toString()); 
     }
 }

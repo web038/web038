@@ -17,10 +17,10 @@
             </ui:define>
             <ui:define name="content">
                 <mc:login  name="#{lc.name}" password="#{lc.password}" action="#{lc.login()}"/>
-                <ice:outputText value="#{msg.loginfailed}" styleClass="error" rendered="#{lc.showloginfailed}"/>
+                <ice:outputText id="loginFailed" value="#{msg.loginfailed}" styleClass="error" rendered="#{lc.showloginfailed}"/>
             </ui:define>
             <ui:define name="notice">
-                <ice:outputText value="#{lc.playerWaiting}"/>
+                <ice:outputText id="playerWaiting" value="#{lc.playerWaiting}"/>
             </ui:define>
 
         </ui:composition>

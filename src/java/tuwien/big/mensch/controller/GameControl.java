@@ -43,10 +43,11 @@ public class GameControl {
      */
     public void startGame(Player player) {
         this.game.addPlayer(player);
-         PushRenderer.render(Game.GAME_RENDERER_NAME);
-        this.setGameState(GameState.STARTED);
         this.game.start();
+        PushRenderer.render(Game.GAME_RENDERER_NAME);
+        this.setGameState(GameState.STARTED);
     }
+    
 /**
  * has the game started?
  */
@@ -60,7 +61,7 @@ public class GameControl {
     void init(Player player) {
         this.game = new Game();
         this.game.addPlayer(player);
-         PushRenderer.render(Game.GAME_RENDERER_NAME);
+        PushRenderer.render(Game.GAME_RENDERER_NAME);
         score = 0;
         this.setGameState(GameState.WAITING);
     }
