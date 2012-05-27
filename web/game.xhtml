@@ -5,19 +5,19 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:c="http://java.sun.com/jsp/jstl/core"
-      xmlns:mc="http://java.sun.com/jsf/composite/mycomponents">
+      xmlns:mc="http://java.sun.com/jsf/composite/mycomponents"
       xmlns:ice="http://www.icesoft.com/icefaces/component">
     <body>
 
         <ui:composition template="./template.xhtml">
 
             <ui:define name="navigation">
-                <h:form>
+                <ice:form>
                     <ul>
-                        <li><h:commandLink value="#{msg.restart}" action="#{lc.gc.init}"/></li>
+                        <li><ice:commandLink value="#{msg.restart}" action="#{lc.gc.init}"/></li>
                         <li><h:link outcome="index" value="#{msg.logout} (#{lc.name})"/></li>
                     </ul>
-                </h:form>
+                </ice:form>
             </ui:define>
 
             <ui:define name="content">
@@ -38,7 +38,7 @@
                                 <th>#{msg.gameinfoleader}</th>
                                 <td>
                                     <c:if test="#{lc.gc.leader == null}"><h:outputText id="leader" value="#{msg.gameinfoleaderseveral}"/></c:if>
-                                    <c:if test="#{lc.gc.leader != null}"><h:outputText id="leader" value="#{lc.gc.leader.name}"/></c:if>
+                                    <c:if test="#{lc.gc.leader != null}"><h:outputText id="leader" value="#{lc.gc.leader}"/></c:if>
                                 </td>
                             </tr>
                             <tr>
@@ -60,22 +60,19 @@
                                 <th>#{msg.playersnumber}</th>
                                 <th>#{msg.playersname}</th>
                             </tr>
-                            <ui:repeat value="#{lc.gc.players}" var="player1" >
+                            <ui:repeat value="#{lc.gc.players}" var="player" >
                                 <tr>
-                                    <th>#{msg.player} #{lc.gc.players.indexOf(player1)+1}</th>
-                                    <td>#{player1.name}</td>
+                                    <th>#{msg.player} #{lc.gc.players.indexOf(player)+1}</th>
+                                    <td>#{player.name}</td>
                                 </tr>
                             </ui:repeat>
                         </tbody>
                     </table>
                 </div>
                 <div id="dicearea">
-                    <p>#{msg.player} #{lc.gc.players.get(0).getName()} </p>
-                    <p>#{msg.player} #{lc.gc.players.get(1).getName()} </p>
                     <hr class="accessibility" />
                     <h2 class="accessibility">#{msg.dice}</h2>
-                    #{lc.gc.player.name}
-                    <h:form>
+                    <ice:form>
                         <c:if test="#{lc.gc.gameOver == false}">
                             <h:commandLink id="rollDiceCommand" action="#{lc.gc.rollDice()}">
                                 <h:graphicImage id="dice" title="#{msg.dicescore} #{lc.gc.score}" name="../img/wuerfel#{lc.gc.score}.png" alt="#{msg.dicescore} #{lc.gc.score}"/>
@@ -85,7 +82,7 @@
                         <c:if test="#{lc.gc.gameOver == true}">
                             <h:graphicImage id="dice" title="#{msg.dicescore} #{lc.gc.score}" name="../img/wuerfel#{lc.gc.score}.png" alt="#{msg.dicescore} #{lc.gc.score}"/>
                         </c:if>
-                    </h:form>
+                    </ice:form>
                 </div>
                 <div id="play_area">
                     <hr class="accessibility" />
@@ -121,19 +118,7 @@
                         </div>
                         <div class="clearer"></div>
 
-                        <c:if test="#{lc.gc.opponentScore == null}">
-                            <div id="infogegner">#{msg.scoreplayer2} #{lc.gc.computeropponent.name}:</div>
-                        </c:if>
-                        <c:if test="#{lc.gc.opponentScore != null}">
-                            <div id="infogegner">
-                                <c:if test="#{lc.gc.opponentScore.size()==0}">
-                                    <h:outputText id="opponentscore" value="#{msg.scoreplayer2} #{lc.gc.computeropponent.name}: -"/>
-                                </c:if>
-                                <c:if test="#{lc.gc.opponentScore.size()>0}">
-                                    <h:outputText id="opponentscore" value="#{msg.scoreplayer2} #{lc.gc.computeropponent.name}: #{lc.gc.opponentScore}"/>
-                                </c:if>
-                            </div>
-                        </c:if>
+
                     </h:panelGroup>
                 </div>
             </ui:define>

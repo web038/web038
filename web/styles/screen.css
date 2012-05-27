@@ -316,3 +316,10 @@ fieldset {
 	margin-right: 5px;
 	width: 500px;
 }
+
+#notice {
+    background:#ee9;
+    font-style:italic;
+    text-align:center;
+    padding:10px 0;
+}

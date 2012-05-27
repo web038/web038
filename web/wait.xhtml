@@ -1,0 +1,29 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:ice="http://www.icesoft.com/icefaces/component"
+      xmlns:mc="http://java.sun.com/jsf/composite/mycomponents"
+      xmlns:h="http://java.sun.com/jsf/html">
+
+
+
+    <body>     
+        <ui:composition template="./template.xhtml">
+            <ui:define name="navigation">
+                <ul>
+                    <li> <h:link value="aktualisieren" outcome="wait"/></li>
+                </ul>
+            </ui:define>
+            <ui:define name="content">
+                <ice:form>
+                    <ice:commandButton value="Spiel starten." rendered="#{gc.gameStarted}"/>
+                </ice:form>
+            </ui:define>
+            <ui:define name="notice">
+                Bitte warten Sie hier auf Spieler 2 ...
+            </ui:define>
+
+        </ui:composition>
+    </body>
+</html>
