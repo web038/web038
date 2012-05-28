@@ -27,14 +27,14 @@ public class Player {
     private String password = null;
     private String birthday = null;
     private String sex = null;
-    private String avatar = null;
+    private Avatar avatar = null;
 
 
         
     /**
      * Sequence of fields in the game the player has to cover
      */
-    private List<Integer> route;
+    private List<Integer> route; 
 
     /**
      * Creates a new instance of Player

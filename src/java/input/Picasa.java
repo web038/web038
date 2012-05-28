@@ -2,6 +2,7 @@ package input;
 
 //import input.Avatar;
 //import input.PicasaConnector;
+import at.ac.big.tuwien.ewa.picasa.Avatar;
 import java.util.List;
 import java.net.URL;
 
@@ -69,6 +70,8 @@ public class Picasa implements PicasaConnector{
         }
         
         return avatars; 
-    }   
+    }
+
+    
 }
 

@@ -1,4 +1,4 @@
-package input;
+package at.ac.big.tuwien.ewa.picasa;
 
 import javax.annotation.ManagedBean;
 import javax.faces.bean.SessionScoped;
