@@ -4,6 +4,7 @@
  */
 package tuwien.big.mensch.controller;
 
+import java.io.Serializable;
 import tuwien.big.mensch.entities.Field;
 import javax.faces.bean.ManagedBean;
 import tuwien.big.mensch.entities.Game;
@@ -16,15 +17,25 @@ import org.icefaces.application.PushRenderer;
 
 @ManagedBean(name = "gc")
 @ApplicationScoped
-public class GameControl {
-    
-    
+public class GameControl implements Serializable{
     private GameState gamestate=GameState.NEW;
     private Game game;
     private int score = 0;
+    
+    public static final String LOGIN_RENDERER_NAME = "login";
+    public static final String DICE_RENDERER_NAME = "dice";
+    
+    private List<Player> players;
     // has game started (true) or is it waiting for more players (false)
+
+    public void setPlayers(List<Player> players) {
+        this.players = players;
+    }
   
-    private int currentPlayerIndex;
+    public Player getCurrentPlayer() {
+        PushRenderer.render(GameControl.DICE_RENDERER_NAME);
+        return game.getCurrentPlayer();
+    }
 
     public GameState getGamestate() {
         return gamestate;
@@ -42,9 +53,9 @@ public class GameControl {
      * starts the game
      */
     public void startGame(Player player) {
-        this.game.addPlayer(player);
-        this.game.start();
-        PushRenderer.render(Game.GAME_RENDERER_NAME);
+        this.addPlayer(player);
+        this.game.start(this.players);
+        
         this.setGameState(GameState.STARTED);
     }
     
@@ -60,10 +71,19 @@ public class GameControl {
      */
     void init(Player player) {
         this.game = new Game();
-        this.game.addPlayer(player);
-        PushRenderer.render(Game.GAME_RENDERER_NAME);
+        this.players=new ArrayList<Player>();
+        this.addPlayer(player);
         score = 0;
         this.setGameState(GameState.WAITING);
+    }
+    
+    /**
+     * adds a player to the game
+     */
+    public void addPlayer(Player player) {
+        this.players.add(player);
+        PushRenderer.addCurrentSession(GameControl.LOGIN_RENDERER_NAME);
+        PushRenderer.render(GameControl.LOGIN_RENDERER_NAME);
     }
     
     /**
@@ -105,7 +125,7 @@ public class GameControl {
      * @return an unmodifiable list of the players participating in this game
      */
     public List<Player> getPlayers(){
-        return game.getPlayers();
+        return this.players;
     }
     
     /**
@@ -146,6 +166,8 @@ public class GameControl {
         if(isGameOver())
             return;
         this.score = this.game.rollthedice();
+        PushRenderer.addCurrentSession(GameControl.DICE_RENDERER_NAME);
+        PushRenderer.render(GameControl.DICE_RENDERER_NAME);
     }
     
     /**

@@ -8,7 +8,6 @@
       xmlns:mc="http://java.sun.com/jsf/composite/mycomponents"
       xmlns:ice="http://www.icesoft.com/icefaces/component">
     <body>
-
         <ui:composition template="./template.xhtml">
 
             <ui:define name="navigation">
@@ -60,28 +59,33 @@
                                 <th>#{msg.playersnumber}</th>
                                 <th>#{msg.playersname}</th>
                             </tr>
-                            <ui:repeat value="#{lc.gc.players}" var="player" >
+
+                            <ice:repeat value="#{lc.gc.players}" var="ppp" >
                                 <tr>
-                                    <th>#{msg.player} #{lc.gc.players.indexOf(player)+1}</th>
-                                    <td>#{player}</td>
+                                    <th>#{msg.player} #{lc.gc.players.indexOf(ppp)+1}</th>
+                                    <td>#{ppp}</td>
                                 </tr>
-                            </ui:repeat>
+                            </ice:repeat>
                         </tbody>
                     </table>
                 </div>
                 <div id="dicearea">
                     <hr class="accessibility" />
                     <h2 class="accessibility">#{msg.dice}</h2>
-<<<<<<< HEAD
-                    #{lc.gc.player.name}
-=======
->>>>>>> multiplayermode
                     <ice:form>
                         <c:if test="#{lc.gc.gameOver == false}">
-                            <h:commandLink id="rollDiceCommand" action="#{lc.gc.rollDice()}">
+
+                            <ice:outputText value="#{gc.currentPlayer}"/>
+                            <c:if test="#{lc.player.equals(gc.currentPlayer)}">
+                                <h:commandLink  id="rollDiceCommand" action="#{lc.gc.rollDice()}">
+                                    <h:graphicImage  id="dice" title="#{msg.dicescore} #{lc.gc.score}" name="../img/wuerfel#{lc.gc.score}.png" alt="#{msg.dicescore} #{lc.gc.score}"/>
+                                    <f:ajax render="dice :round :leader :time :board"/>
+                                </h:commandLink>
+                            </c:if>
+                            <c:if test="#{not(lc.player.equals(gc.currentPlayer))}">
                                 <h:graphicImage id="dice" title="#{msg.dicescore} #{lc.gc.score}" name="../img/wuerfel#{lc.gc.score}.png" alt="#{msg.dicescore} #{lc.gc.score}"/>
-                                <f:ajax render="dice :round :leader :time :board"/>
-                            </h:commandLink>
+                            </c:if>
+
                         </c:if>
                         <c:if test="#{lc.gc.gameOver == true}">
                             <h:graphicImage id="dice" title="#{msg.dicescore} #{lc.gc.score}" name="../img/wuerfel#{lc.gc.score}.png" alt="#{msg.dicescore} #{lc.gc.score}"/>
