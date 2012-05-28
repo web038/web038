@@ -1,25 +1,44 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+ * a player of the game
  */
 package tuwien.big.mensch.entities;
 
+import at.ac.big.tuwien.ewa.picasa.Avatar;
+import java.util.Collections;
+import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.NoneScoped;
-
 
 @ManagedBean(name = "player")
 @NoneScoped
 public class Player {
 
+    @Override
+    public String toString() {
+        return firstname + " " + lastname + "(" + name + ')';
+    }
+    /**
+     * The current position of the user's counter
+     */
+    private int position;
     private String firstname = null;
     private String lastname = null;
     private String name = null;
     private String password = null;
     private String birthday = null;
     private String sex = null;
+    private Avatar avatar = null;
 
-    /** Creates a new instance of Player */
+
+        
+    /**
+     * Sequence of fields in the game the player has to cover
+     */
+    private List<Integer> route; 
+
+    /**
+     * Creates a new instance of Player
+     */
     public Player() {
     }
 
@@ -28,6 +47,42 @@ public class Player {
      */
     public String getName() {
         return name;
+    }
+
+    /**
+     * Return the actual position of this player's counter
+     *
+     * @return the actual position of this player's counter
+     */
+    public int getPosition() {
+        return this.position;
+    }
+
+    /**
+     * Sets the actual position of this player's counter
+     *
+     * @param pos actual position of this player's counter
+     */
+    public void setPosition(int pos) {
+        this.position = pos;
+    }
+
+    /**
+     * Get the sequence of fields the player has to cover
+     *
+     * @return the sequence of fields the player has to cover
+     */
+    public List<Integer> getRoute() {
+        return Collections.unmodifiableList(this.route);
+    }
+
+    /**
+     * Set the sequence of fields the player has to cover
+     *
+     * @param route sequence of fields the player has to cover
+     */
+    public void setRoute(List<Integer> route) {
+        this.route = route;
     }
 
     /**
@@ -106,4 +161,13 @@ public class Player {
     public void setSex(String sex) {
         this.sex = sex;
     }
+    
+        public void setAvatar(Avatar avatar) {
+        this.avatar = avatar;
+    }
+
+    public Avatar getAvatar() {
+        return avatar;
+    }
+    
 }

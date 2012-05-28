@@ -34,12 +34,23 @@
                             <li><a href="#">Navigation</a></li>
                         </ul>
                     </ui:insert>
+                    <div id="user">
+                        <h:outputText value="Willkommen, Spieler #{lc.player}" rendered="#{lc.isPlayerLoggedIn()}"/>
+                        <h:outputText value="Willkommen, Gast" rendered="#{not(lc.isPlayerLoggedIn())}"/>
+                    </div>
                 </div>
-                <hr class="accessibility" />                
+                <hr class="accessibility" />          
+
                 <ui:insert name="content">
                     My content
                 </ui:insert>
-                
+                <hr class="accessibility" />
+                <div id="notice">
+                    <ui:insert name="notice">
+                        
+                    </ui:insert>
+                </div>
+
             </div>
             <div id="footer">
                 <ui:insert name="footer">

@@ -4,210 +4,185 @@
  */
 package tuwien.big.mensch.controller;
 
-import gameapi.Field;
+import tuwien.big.mensch.entities.Field;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
-import gameapi.Game;
-import gameapi.Player;
-import java.io.Serializable;
+import tuwien.big.mensch.entities.Game;
+import tuwien.big.mensch.entities.Player;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
+import javax.faces.bean.ApplicationScoped;
 import org.icefaces.application.PushRenderer;
 
 @ManagedBean(name = "gc")
-@SessionScoped
-public class GameControl implements Serializable{
-
-    public static final String PUSH_GROUP = "PLAYER_PUSH_GROUP";
+@ApplicationScoped
+public class GameControl {
     
-    private ArrayList<Player> playerlist;
+    
+    private GameState gamestate=GameState.NEW;
     private Game game;
-    // index of current player (for 2 players: 0 or 1)
-    private int playerIndex;
-
-    public int getPlayerIndex() {
-        return playerIndex;
-    }
-
-    public void setPlayerIndex(int playerIndex) {
-        this.playerIndex = playerIndex;
-    }
     private int score = 0;
+    // has game started (true) or is it waiting for more players (false)
+  
+    private int currentPlayerIndex;
 
-    /**
-     * Creates a new instance of MemoryControl
-     */
+    public GameState getGamestate() {
+        return gamestate;
+    }
+
+    public void setGameState(GameState gamestate) {
+        this.gamestate = gamestate;
+    }
+    
+    /** Creates a new instance of MemoryControl */
     public GameControl() {
     }
-    
-    // return index of an eventually new player
-    public int getNextPlayerIndex() {
-        return (playerlist.isEmpty() ? 0 : playerlist.size() + 1 );
+
+    /**
+     * starts the game
+     */
+    public void startGame(Player player) {
+        this.game.addPlayer(player);
+        this.game.start();
+        PushRenderer.render(Game.GAME_RENDERER_NAME);
+        this.setGameState(GameState.STARTED);
     }
     
-            public void addPlayer(String playername){
-            System.out.println(playerlist.size()); 
-        if(playerlist.size()<2){
-            playerlist.add(new Player(playername));
-            PushRenderer.addCurrentSession(PUSH_GROUP);
-            PushRenderer.render(PUSH_GROUP);
-            init(); 
-        }
-        }
-
-    /*
-    public GameControl(String playername) {
-        if (playerlist.isEmpty()) {
-            playerlist.add(new Player(playername));
-        }
-        if (playerlist.size() == 1) {
-            playerlist.add(new Player(playername));
-            init();
-        }
-
-    }*/
-    
-        public GameControl(String playername) {
-        if (playerlist.isEmpty()) {
-            playerlist.add(new Player(playername));
-            PushRenderer.addCurrentSession(PUSH_GROUP);
-        }
+/**
+ * has the game started?
+ */
+    public boolean isGameStarted() {
+        return (this.gamestate==GameState.STARTED);
     }
-        
-
+    
     /**
      * Initializes a new game
      */
-    public void init() {
-        System.out.println("INIT NEW GAME"); 
-        // which player shoukd start
-        playerIndex=0;
-        // start the game
-        this.game = new Game(playerlist, true);
-        // score beginns with 0
+    void init(Player player) {
+        this.game = new Game();
+        this.game.addPlayer(player);
+        PushRenderer.render(Game.GAME_RENDERER_NAME);
         score = 0;
+        this.setGameState(GameState.WAITING);
     }
-
+    
     /**
      * Returns the time already spent on this game
-     *
+     * 
      * @return the time already spent on this game
      */
-    public String getTime() {
-        long milliseconds = game.getSpentTime();
-        return String.format("%d min, %d sec",
-                TimeUnit.MILLISECONDS.toMinutes(milliseconds),
-                (TimeUnit.MILLISECONDS.toSeconds(milliseconds)
-                - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(milliseconds))));
+    public String getTime(){
+       long milliseconds = game.getSpentTime();
+       return String.format("%d min, %d sec",
+               TimeUnit.MILLISECONDS.toMinutes(milliseconds),
+               (TimeUnit.MILLISECONDS.toSeconds(milliseconds) - 
+                TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(milliseconds)))
+       );
     }
 
     /**
      * Specifies whether this game is over or not
-     *
-     * @return
-     * <code>true</code> if this game is over,
-     * <code>false</code> otherwise.
+     * 
+     * @return <code>true</code> if this game is over, <code>false</code> 
+     *         otherwise.
      */
-    public boolean isGameOver() {
+    public boolean isGameOver(){
         return game.isGameOver();
     }
-
+    
     /**
      * Returns the rounds already played in this game
-     *
+     * 
      * @return the rounds already played in this game
      */
-    public int getRound() {
+    public int getRound(){
         return game.getRound();
     }
-
+    
     /**
      * Return an unmodifiable list of the players participating in this game
-     *
+     * 
      * @return an unmodifiable list of the players participating in this game
      */
-    public List<Player> getPlayers() {
+    public List<Player> getPlayers(){
         return game.getPlayers();
     }
-
+    
     /**
      * Returns the currently leading player
-     *
+     * 
      * @return the currently leading player
      */
-    public Player getLeader() {
+    public Player getLeader(){
         return game.getLeader();
     }
-
+    
     /**
-     * Specifies if a counter of a player occupies the field identified by
+     * Specifies if a counter of a player occupies the field identified by 
      * <code>index</code> and when yes which player's counter occupies it
-     *
+     * 
      * @param index Index of the field for which should be checked if and which
-     * player's counter occupies it
+     *        player's counter occupies it
      * @return number of the player whose counter occupies the field identified
-     * by the given
-     * <code>intex</code>, i.e., 1, 2, 3 or 4; or -1 if no counter occupies this
-     * field
+     *         by the given <code>intex</code>, i.e., 1, 2, 3 or 4; or -1
+     *         if no counter occupies this field
      */
-    public int isFieldOccupied(int index) {
-        if (this.game.getPositionplayer1() == index) {
+    public int isFieldOccupied(int index){
+        if(this.game.getPositionplayer1() == index)
             return 1;
-        } else if (this.game.getPositionplayer2() == index) {
+        else if(this.game.getPositionplayer2() == index)
             return 2;
-        } else if (this.game.getPositionplayer3() == index) {
+        else if(this.game.getPositionplayer3() == index)
             return 3;
-        } else if (this.game.getPositionplayer4() == index) {
+        else if(this.game.getPositionplayer4() == index)
             return 4;
-        }
         return -1;
     }
-
+    
     /**
      * Rolls the dice for the player
      */
-    public void rollDice() {
-        if (isGameOver()) {
+    public void rollDice(){
+        if(isGameOver())
             return;
-        }
-        this.score = game.rollthedice(playerlist.get(playerIndex));
+        this.score = this.game.rollthedice();
     }
-
+    
     /**
      * Returns the score thrown by the player
-     *
+     * 
      * @return the score thrown by the player
      */
-    public int getScore() {
+    public int getScore(){
         return this.score;
     }
-
+    
     /**
      * Returns the score of the computer opponent
-     *
+     * 
      * @return the score of the computer-controlled opponent
      */
-    public List<Integer> getOpponentScore() {
+    public List<Integer> getOpponentScore(){
         return game.getOpponentScore();
     }
-
+    
     /**
      * Returns the fields of the board
-     *
+     * 
      * @return fields of the board
      */
-    public List<Field> getBoardFields() {
+    public List<Field> getBoardFields(){
         return game.getBoardFields();
     }
-
-   
+    
     /**
      * Returns the player
-     *
+     * 
      * @return player
      */
     public Player getPlayer(int index) {
-        return playerlist.get(index);
+        return this.game.getPlayers().get(index);
     }
 }
+
+    

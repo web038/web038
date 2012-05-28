@@ -35,19 +35,19 @@
                                     <h:messages styleClass="error" for="password" showDetail="true" showSummary="false"/>
                                 </div>
                                 <div>
-                                     <h:outputLabel styleClass="Float" for="avatar"  value="Avatar"/>
-           
-                                                         <h:selectOneMenu label="avatar">  
-                        <f:selectItems value="#{pic.getPhotoURLs()}"/>  
-                    </h:selectOneMenu>  
+                                    <h:outputLabel styleClass="Float" for="avatar"  value="#{msg.avatar}"/>
+                             
+                                    <h:selectOneMenu id="avatar" value="#{rc.newplayer.avatar}"  >
+                                        <f:selectItem itemValue="#{pic.avatars}" itemLabel="#{pic.avatars}"/>
+                                    </h:selectOneMenu>
                                 </div>
 
                             </fieldset>
                         </div>
-                        
+
                         <div id="personaldata">    
                             <h:selectBooleanCheckbox id="showpersonaldata" immediate="true" value="#{rc.displayprivatedata}"
-                                                 valueChangeListener="#{rc.displayChanged}" onclick="this.form.submit()"/>
+                                                     valueChangeListener="#{rc.displayChanged}" onclick="this.form.submit()"/>
                             <h:outputLabel styleClass="Float" for="showpersonaldata" value="#{msg.showpersonal}"/>
                         </div>
                         

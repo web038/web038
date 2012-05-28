@@ -1,4 +1,4 @@
-package at.ac.big.tuwien.ewa.twitter;
+package input;
 
 import twitter4j.Status;
 import twitter4j.TwitterException;

@@ -1,14 +1,12 @@
 package tuwien.big.mensch.controller;
 
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+ * controls login operations
  */
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import tuwien.big.mensch.entities.Player;
-import tuwien.big.mensch.controller.GameControl;
 import tuwien.big.mensch.entities.RegisteredPlayerPool;
 
 @ManagedBean(name = "lc")
@@ -16,58 +14,53 @@ import tuwien.big.mensch.entities.RegisteredPlayerPool;
 public class LoginControl {
 
     @ManagedProperty(value = "#{player}")
-    private Player player;
-    
+    private Player player=null;
     @ManagedProperty(value = "#{rpp}")
     private RegisteredPlayerPool rpp;
-    
     @ManagedProperty(value = "#{gc}")
     private GameControl gc;
-        
     @ManagedProperty(value = "false")
     private boolean showloginfailed;
-    
+    @ManagedProperty(value = "false")   
+    private boolean showwaiting;
     private String name;
-    
     private String password;
-    
-    // index in the game
-    private int index;
 
-    public int getIndex() {
-        return index;
-    }
-
-    public void setIndex(int index) {
-        this.index = index;
-    }
-
-    /** Creates a new instance of LoginControl */
+    /**
+     * Creates a new instance of LoginControl
+     */
     public LoginControl() {
     }
 
     public String login() {
-        
-        System.out.println("Login Data:");
-        System.out.println(name);
-        System.out.println(password);
-        
+        /*
+         * System.out.println("Login Data:"); System.out.println(name);
+         * System.out.println(password);
+         *
+         */
+
         player = getRpp().getRegisteredPlayer(name, password);
         if (player != null) {
             setShowloginfailed(false);
-
-            System.out.println(gc); 
-            
-            if(gc==null){
-                gc = new GameControl(player.getName());
-            }else{
-                this.getGc().addPlayer(player.getName());
+            if (gc.getGamestate() == GameState.NEW ) {
+                gc.init(player);
+                return "wait";
+            } else if (gc.getGamestate() == GameState.WAITING) {
+                System.out.println("second player wants to start the game"); 
+                gc.startGame(player); // the second player starts the game
+                return "game";
             }
-            return "game";
+
+            //gc.addPlayer(player); 
+
+
+            //gc = new GameControl(player.getName());
+
+
         } else {
             setShowloginfailed(true);
-            return "index";
         }
+        return "index";
     }
 
     /**
@@ -139,6 +132,17 @@ public class LoginControl {
     public void setShowloginfailed(boolean showloginfailed) {
         this.showloginfailed = showloginfailed;
     }
+/**
+ * is game waiting for more players?
+ * @return 
+ */
+    public boolean isShowwaiting() {
+        return showwaiting;
+    }
+
+    public void setShowwaiting(boolean showwaiting) {
+        this.showwaiting = showwaiting;
+    }
 
     /**
      * @return the mc
@@ -146,12 +150,51 @@ public class LoginControl {
     public GameControl getGc() {
         return gc;
     }
-  
+
     /**
      * @param mc the mc to set
      */
     public void setGc(GameControl gc) {
         this.gc = gc;
-        this.index=this.gc.getNextPlayerIndex();
+    }
+
+    /**
+     * is player 1 already waiting for secnd player?
+     */
+    public String getPlayerWaiting() {
+        System.out.println("getPlayerWaiting, GameState="+this.gc.getGamestate());
+        if (this.gc.getGamestate() == GameState.NEW) {
+            return "Sie sind der 1.Spieler";
+        }
+        if (this.gc.getGamestate() == GameState.WAITING) {
+            return "Spieler " + this.gc.getPlayers().get(0) + " wartet schon auf Sie!";
+        }
+        if(this.gc.getPlayers().contains(player)) { // funktioniert nicht.
+            return "Das Spiel läuft bereits.";
+        }
+        return "Das Spiel läuft bereits. Warten Sie bis es beendet wurde.";
+    }
+    /**
+     * 
+     */
+    public boolean isPlayerLoggedIn() {
+        return player!=null &&  player.getName()!=null;
+    }
+    /**
+     * should the login screen be rendered
+     * @returns boolean true, if the game hasnot started yet or the user
+     *                      is already logged in
+     */
+    public boolean showLogin() {
+        return !this.gc.isGameStarted() || isPlayerLoggedIn();
+    }
+    
+    /**
+     * should the "go to game" button be rendered
+     * @returns boolean true, if the user is logged in and 
+     *                  part of the game 
+     */
+    public boolean showGameButton() {
+        return this.gc.isGameStarted() && isPlayerLoggedIn();
     }
 }

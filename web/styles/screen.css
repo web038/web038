@@ -1,141 +1,141 @@
 body {
-	font-family: sans-serif;
-	font-size: 80%;
-	background-color: #aaa;
+    font-family: sans-serif;
+    font-size: 80%;
+    background-color: #aaa;
 }
 
 table {
-	padding-top: 0.5em;
-	padding-bottom: 0.5em;
-	padding-right: 0.5em;
-	padding-left: 0.5em;
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
+    padding-right: 0.5em;
+    padding-left: 0.5em;
 }
 
 table tbody {
-	padding:0;
+    padding:0;
 }
 
 .accessibility {
-	visibility:hidden;
-	width:0;
-	height:0;
-	position:absolute;
-	left:-999px;
-	top:-999px;
+    visibility:hidden;
+    width:0;
+    height:0;
+    position:absolute;
+    left:-999px;
+    top:-999px;
 }
 
 #wrapper {
-	margin: 0pt auto;
-	position: relative;	
+    margin: 0pt auto;
+    position: relative;	
     min-width: 870px;
-	max-width: 1000px;
+    max-width: 1000px;
 }
 
 #header {
-	background-image: url(../img/dots.png);
-	background-repeat: repeat-x;	
-	display: block;
-	border: 1px solid #333366;	
+    background-image: url(../img/dots.png);
+    background-repeat: repeat-x;	
+    display: block;
+    border: 1px solid #333366;	
 }
 
 #header h1 {
-	text-indent: -999em;
-	height: 80px;
-	padding-bottom: 0px;
-	margin-bottom: 0px;
-	margin-top: 0px;
+    text-indent: -999em;
+    height: 80px;
+    padding-bottom: 0px;
+    margin-bottom: 0px;
+    margin-top: 0px;
 }
 
 #teaser {
-	float:right;
-	background-image: url(../img/header_right.png);
-	background-position: right;
-	background-repeat:no-repeat;
-	height: 80px;
-	width: 300px;
-	margin-right: 15px
+    float:right;
+    background-image: url(../img/header_right.png);
+    background-position: right;
+    background-repeat:no-repeat;
+    height: 80px;
+    width: 300px;
+    margin-right: 15px
 }
 
 #logo {
-	float:left;
-	background-image: url(../img/header_left.png);
-	background-position: 25px 5px;
-	background-repeat:no-repeat;
-	height: 80px;
-	width: 200px;
+    float:left;
+    background-image: url(../img/header_left.png);
+    background-position: 25px 5px;
+    background-repeat:no-repeat;
+    height: 80px;
+    width: 200px;
 }
 
 #body {
-	border: 1px solid #003366;	
-	background-color: #ffffff;
+    border: 1px solid #003366;	
+    background-color: #ffffff;
 }
 
 #navigation {
-	background-color: #003366;
-	height: 1.8em;
-	text-align: right;
-	color: #FFFFFF;
+    background-color: #003366;
+    height: 1.8em;
+    text-align: right;
+    color: #FFFFFF;
 }
 
 #navigation ul {
-	margin-top: 0;
-	padding-top: 0;
-	text-align: right;
-	list-style: none;
-	padding-right: 0.5em;
+    margin-top: 0;
+    padding-top: 0;
+    text-align: right;
+    list-style: none;
+    padding-right: 0.5em;
 }
 
 #navigation ul li {
-	display: inline;
+    display: inline;
 }
 
 #navigation ul li a {
-	color: #dddddd;
-	line-height: 1.5em;
-	padding-left: 0.5em;
-	text-decoration: none;
-	border-left: 1px solid #666666;
+    color: #dddddd;
+    line-height: 1.5em;
+    padding-left: 0.5em;
+    text-decoration: none;
+    border-left: 1px solid #666666;
 }
 
 #play_area {
-	margin-left:29em;
-	margin-top: 10px;
-	margin-bottom: 10px;
+    margin-left:29em;
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 
 #board {
-	margin: 0px;
+    margin: 0px;
 }
 
 #dicearea {
-	float:left;
-	width:120px;
-	height:120px;
-	background-color: #aaa;
-	font-size: 1.5em;
-	font-family: sans-serif;
-	text-align: center;
-	margin-left: auto;
-	margin-left: auto;
-	display: block;
+    float:left;
+    width:120px;
+    height:120px;
+    background-color: #aaa;
+    font-size: 1.5em;
+    font-family: sans-serif;
+    text-align: center;
+    margin-left: auto;
+    margin-left: auto;
+    display: block;
 }
 
 #board div.fields {
-	float:left;
-	width:550px;
-	height:550px;
-	position:relative;
+    float:left;
+    width:550px;
+    height:550px;
+    position:relative;
 }
 #board div.fields ol {
-list-style-type:none;
+    list-style-type:none;
 }
 
 #board div.fields img {
-	position:absolute;
-	padding:5px;
+    position:absolute;
+    padding:5px;
 }
 #board div.fields br {
-	display:none;
+    display:none;
 }
 
 <!-- /* Spielfelder */
@@ -218,101 +218,116 @@ list-style-type:none;
 #field72 {top:300px;	left:250px;}
 
 #info_area {	
-	background-color: #003366;
-	float: left;
-	color: white;
-	padding-left: 1em;
-	padding-right: 1em;
-	padding-bottom: 0.5em;
-	font-size: 90%;	
+    background-color: #003366;
+    float: left;
+    color: white;
+    padding-left: 1em;
+    padding-right: 1em;
+    padding-bottom: 0.5em;
+    font-size: 90%;	
 }
 
 #info_area h2 {
-	color: #f29400;
-	margin-bottom: 0em;
+    color: #f29400;
+    margin-bottom: 0em;
 }
 
 #info_area table.game_info {
-	padding-left: 0em;
+    padding-left: 0em;
 }
 
 #info_area table.game_info th {
-	text-align: left;
-	color: #f29400;
-	padding-right: 0.5em;
+    text-align: left;
+    color: #f29400;
+    padding-right: 0.5em;
 }
 
 #footer {
-	text-align: right;
-	font-size: 0.8em;
-	font-family: sans-serif;
+    text-align: right;
+    font-size: 0.8em;
+    font-family: sans-serif;
 }
 
 
 #main {
-	padding:10px;
+    padding:10px;
 }
 
 #main h2, #main h3 {
-	color: #f29400;
+    color: #f29400;
 }
 
 fieldset {
-	border: none;
+    border: none;
 }
 
 #buttons {
-	margin-top: 1em;
+    margin-top: 1em;
 }
 
 .formblock #buttons {
-	margin-top: 2em;
-	margin-bottom: 1em;
-	width: 21.2em;
-	text-align: right;
+    margin-top: 2em;
+    margin-bottom: 1em;
+    width: 21.2em;
+    text-align: right;
 }
 
 
 .formblock form {
-	display:block;
-	overflow: auto;
+    display:block;
+    overflow: auto;
 }
 
 .formblock label {
-	float:left;
-	display:block;
-	width: 9em;
-	margin: 0.5em 0 0.5em 0;
-	clear:both;
+    float:left;
+    display:block;
+    width: 9em;
+    margin: 0.5em 0 0.5em 0;
+    clear:both;
 }
 
 .formblock input, textarea, select {
-	float:left;
-	display:block;
-	margin: 0.2em 0 0.2em 0;
+    float:left;
+    display:block;
+    margin: 0.2em 0 0.2em 0;
 }
 
 .formblock input[type=submit] {
-	float:right;
+    float:right;
 }
 
 .formblock fieldset {
-	clear:both;
-	display:block;
-	border:0;
+    clear:both;
+    display:block;
+    border:0;
 }
 
 .clearer {
-	clear:both;
+    clear:both;
 }
 
 #infogegner {
-	background-color: #aaa;
-	font-size: 1.2em;
-	font-family: sans-serif;
-	padding: 3px;
-	margin-top: 20px;
-	margin-bottom: 20px;
-	margin-right: 5px;
-	width: 500px;
+    background-color: #aaa;
+    font-size: 1.2em;
+    font-family: sans-serif;
+    padding: 3px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-right: 5px;
+    width: 500px;
+}
+
+#notice {
+    background:#ee9;
+    font-style:italic;
+    text-align:center;
+    padding:10px 0;
+}
+#user {
+    color:#ccccff;
+    font-weight:bold;
+    font-style:italic;
+    left:10px;
+    margin-top:-2em;
+    position:absolute;
 }

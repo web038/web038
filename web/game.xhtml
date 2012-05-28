@@ -38,7 +38,7 @@
                                 <th>#{msg.gameinfoleader}</th>
                                 <td>
                                     <c:if test="#{lc.gc.leader == null}"><h:outputText id="leader" value="#{msg.gameinfoleaderseveral}"/></c:if>
-                                    <c:if test="#{lc.gc.leader != null}"><h:outputText id="leader" value="#{lc.gc.leader.name}"/></c:if>
+                                    <c:if test="#{lc.gc.leader != null}"><h:outputText id="leader" value="#{lc.gc.leader}"/></c:if>
                                 </td>
                             </tr>
                             <tr>
@@ -60,10 +60,10 @@
                                 <th>#{msg.playersnumber}</th>
                                 <th>#{msg.playersname}</th>
                             </tr>
-                            <ui:repeat value="#{lc.gc.players}" var="player1" >
+                            <ui:repeat value="#{lc.gc.players}" var="player" >
                                 <tr>
-                                    <th>#{msg.player} #{lc.gc.players.indexOf(player1)+1}</th>
-                                    <td>#{player1.name}</td>
+                                    <th>#{msg.player} #{lc.gc.players.indexOf(player)+1}</th>
+                                    <td>#{player}</td>
                                 </tr>
                             </ui:repeat>
                         </tbody>
@@ -72,7 +72,10 @@
                 <div id="dicearea">
                     <hr class="accessibility" />
                     <h2 class="accessibility">#{msg.dice}</h2>
+<<<<<<< HEAD
                     #{lc.gc.player.name}
+=======
+>>>>>>> multiplayermode
                     <ice:form>
                         <c:if test="#{lc.gc.gameOver == false}">
                             <h:commandLink id="rollDiceCommand" action="#{lc.gc.rollDice()}">
@@ -119,19 +122,7 @@
                         </div>
                         <div class="clearer"></div>
 
-                        <c:if test="#{lc.gc.opponentScore == null}">
-                            <div id="infogegner">#{msg.scoreplayer2} #{lc.gc.computeropponent.name}:</div>
-                        </c:if>
-                        <c:if test="#{lc.gc.opponentScore != null}">
-                            <div id="infogegner">
-                                <c:if test="#{lc.gc.opponentScore.size()==0}">
-                                    <h:outputText id="opponentscore" value="#{msg.scoreplayer2} #{lc.gc.computeropponent.name}: -"/>
-                                </c:if>
-                                <c:if test="#{lc.gc.opponentScore.size()>0}">
-                                    <h:outputText id="opponentscore" value="#{msg.scoreplayer2} #{lc.gc.computeropponent.name}: #{lc.gc.opponentScore}"/>
-                                </c:if>
-                            </div>
-                        </c:if>
+
                     </h:panelGroup>
                 </div>
             </ui:define>
