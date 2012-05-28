@@ -1,4 +1,2 @@
 news.
-hier könnten wir eine art entwickler tagebuch führen, habt ihr lust?
-das hält die anderen dann up2date. andererseits haben wir da eh auch die logs von den commits.
-
+test nachricht vom 29.mai, 14.46
