@@ -1,0 +1,29 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:composite="http://java.sun.com/jsf/composite"
+      xmlns:ice="http://www.icesoft.com/icefaces/component">
+
+    <!-- INTERFACE -->
+    <composite:interface>
+        <composite:attribute name="name" required="false"/>
+        <composite:attribute name="password" required="false"/>
+        <composite:attribute name="action" method-signature="java.lang.String f()" required="true"/>
+    </composite:interface>
+
+    <!-- IMPLEMENTATION -->
+    <composite:implementation>
+        <ice:form>
+            <h:panelGrid>
+                <ice:outputLabel value="#{msg.name}" for="name"/>
+                <ice:inputText id="name" value="#{cc.attrs.name}"/>
+                <ice:outputLabel value="#{msg.password}"  for="password"/>
+                <ice:inputSecret id="password" value="#{cc.attrs.password}"/>
+                <ice:commandButton value="#{msg.login}" action="#{cc.attrs.action}"/>
+            </h:panelGrid>
+        </ice:form>
+    </composite:implementation>
+</html>
