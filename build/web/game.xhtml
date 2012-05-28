@@ -5,19 +5,19 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:c="http://java.sun.com/jsp/jstl/core"
-      xmlns:mc="http://java.sun.com/jsf/composite/mycomponents">
+      xmlns:mc="http://java.sun.com/jsf/composite/mycomponents"
       xmlns:ice="http://www.icesoft.com/icefaces/component">
     <body>
 
         <ui:composition template="./template.xhtml">
 
             <ui:define name="navigation">
-                <h:form>
+                <ice:form>
                     <ul>
-                        <li><h:commandLink value="#{msg.restart}" action="#{lc.gc.init}"/></li>
+                        <li><ice:commandLink value="#{msg.restart}" action="#{lc.gc.init}"/></li>
                         <li><h:link outcome="index" value="#{msg.logout} (#{lc.name})"/></li>
                     </ul>
-                </h:form>
+                </ice:form>
             </ui:define>
 
             <ui:define name="content">
@@ -73,7 +73,7 @@
                     <hr class="accessibility" />
                     <h2 class="accessibility">#{msg.dice}</h2>
                     #{lc.gc.player.name}
-                    <h:form>
+                    <ice:form>
                         <c:if test="#{lc.gc.gameOver == false}">
                             <h:commandLink id="rollDiceCommand" action="#{lc.gc.rollDice()}">
                                 <h:graphicImage id="dice" title="#{msg.dicescore} #{lc.gc.score}" name="../img/wuerfel#{lc.gc.score}.png" alt="#{msg.dicescore} #{lc.gc.score}"/>
@@ -83,7 +83,7 @@
                         <c:if test="#{lc.gc.gameOver == true}">
                             <h:graphicImage id="dice" title="#{msg.dicescore} #{lc.gc.score}" name="../img/wuerfel#{lc.gc.score}.png" alt="#{msg.dicescore} #{lc.gc.score}"/>
                         </c:if>
-                    </h:form>
+                    </ice:form>
                 </div>
                 <div id="play_area">
                     <hr class="accessibility" />
