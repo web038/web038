@@ -6,21 +6,24 @@
       xmlns:mc="http://java.sun.com/jsf/composite/mycomponents"
       xmlns:h="http://java.sun.com/jsf/html">
 
-
-
     <body>     
-        <ui:composition template="./template.xhtml">
+
+        <ui:composition template="./template.xhtml" >
             <ui:define name="navigation">
                 <ul>
                     <li> <h:link value="#{msg.register}" outcome="register"/></li>
                 </ul>
             </ui:define>
             <ui:define name="content">
-                <mc:login  name="#{lc.name}" password="#{lc.password}" action="#{lc.login()}"/>
+                <mc:login rendered="#{lc.showLogin()}" name="#{lc.name}" password="#{lc.password}" action="#{lc.login()}"/>
+
                 <ice:outputText id="loginFailed" value="#{msg.loginfailed}" styleClass="error" rendered="#{lc.showloginfailed}"/>
             </ui:define>
             <ui:define name="notice">
                 <ice:outputText id="playerWaiting" value="#{lc.playerWaiting}"/>
+                <ice:form rendered="#{lc.showGameButton()}" >
+                    <ice:commandButton value="Hier gehts zum laufenden Spiel"  action="game.xhtml"/>
+                </ice:form>
             </ui:define>
 
         </ui:composition>

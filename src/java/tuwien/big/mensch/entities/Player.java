@@ -169,4 +169,5 @@ public class Player {
     public Avatar getAvatar() {
         return avatar;
     }
+    
 }

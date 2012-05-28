@@ -14,7 +14,7 @@ import tuwien.big.mensch.entities.RegisteredPlayerPool;
 public class LoginControl {
 
     @ManagedProperty(value = "#{player}")
-    private Player player;
+    private Player player=null;
     @ManagedProperty(value = "#{rpp}")
     private RegisteredPlayerPool rpp;
     @ManagedProperty(value = "#{gc}")
@@ -169,6 +169,32 @@ public class LoginControl {
         if (this.gc.getGamestate() == GameState.WAITING) {
             return "Spieler " + this.gc.getPlayers().get(0) + " wartet schon auf Sie!";
         }
+        if(this.gc.getPlayers().contains(player)) { // funktioniert nicht.
+            return "Das Spiel läuft bereits.";
+        }
         return "Das Spiel läuft bereits. Warten Sie bis es beendet wurde.";
+    }
+    /**
+     * 
+     */
+    public boolean isPlayerLoggedIn() {
+        return player!=null &&  player.getName()!=null;
+    }
+    /**
+     * should the login screen be rendered
+     * @returns boolean true, if the game hasnot started yet or the user
+     *                      is already logged in
+     */
+    public boolean showLogin() {
+        return !this.gc.isGameStarted() || isPlayerLoggedIn();
+    }
+    
+    /**
+     * should the "go to game" button be rendered
+     * @returns boolean true, if the user is logged in and 
+     *                  part of the game 
+     */
+    public boolean showGameButton() {
+        return this.gc.isGameStarted() && isPlayerLoggedIn();
     }
 }

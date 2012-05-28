@@ -36,16 +36,15 @@
                                 </div>
                                 <div>
                                     <h:outputLabel styleClass="Float" for="avatar"  value="#{msg.avatar}"/>
-                                        
-                                    <h:selectOneMenu value="TEST">
-                                        <f:selectItems 
-                                            itemLabel="#{pic.getPhotoURLs().getDescription()}" itemValue="#{pic.getPhotoURLs().getDescription()}" />
+                             
+                                    <h:selectOneMenu id="avatar" value="#{rc.newplayer.avatar}"  >
+                                        <f:selectItem itemValue="#{pic.avatars}" itemLabel="#{pic.avatars}"/>
                                     </h:selectOneMenu>
                                 </div>
-                                    
+
                             </fieldset>
                         </div>
-                            
+
                         <div id="personaldata">    
                             <h:selectBooleanCheckbox id="showpersonaldata" immediate="true" value="#{rc.displayprivatedata}"
                                                      valueChangeListener="#{rc.displayChanged}" onclick="this.form.submit()"/>
