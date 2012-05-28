@@ -63,7 +63,7 @@
                             <ui:repeat value="#{lc.gc.players}" var="player" >
                                 <tr>
                                     <th>#{msg.player} #{lc.gc.players.indexOf(player)+1}</th>
-                                    <td>#{player.name}</td>
+                                    <td>#{player}</td>
                                 </tr>
                             </ui:repeat>
                         </tbody>
@@ -72,6 +72,10 @@
                 <div id="dicearea">
                     <hr class="accessibility" />
                     <h2 class="accessibility">#{msg.dice}</h2>
+<<<<<<< HEAD
+                    #{lc.gc.player.name}
+=======
+>>>>>>> multiplayermode
                     <ice:form>
                         <c:if test="#{lc.gc.gameOver == false}">
                             <h:commandLink id="rollDiceCommand" action="#{lc.gc.rollDice()}">

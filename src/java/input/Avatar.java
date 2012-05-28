@@ -1,4 +1,4 @@
-package at.ac.big.tuwien.ewa.picasa;
+package input;
 
 import javax.annotation.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -44,6 +44,10 @@ public class Avatar {
 	public String toString() {
 		return "Avatar [url=" + url + ", description=" + description + "]";
 	}
+        
+        public String getStrindDropDown(){
+            return description.replace(".png", "").trim(); 
+        }
 	
 	
 	

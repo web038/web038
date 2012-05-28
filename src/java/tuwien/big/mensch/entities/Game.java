@@ -16,7 +16,6 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import org.icefaces.application.PushRenderer;
-import tuwien.big.mensch.entities.Player;
 
 
 /**

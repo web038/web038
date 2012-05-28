@@ -36,9 +36,8 @@
                                 </div>
                                 <div>
                                     <h:outputLabel styleClass="Float" for="avatar"  value="#{msg.avatar}"/>
-                             
                                     <h:selectOneMenu id="avatar" value="#{rc.newplayer.avatar}"  >
-                                        <f:selectItem itemValue="#{pic.avatars}" itemLabel="#{pic.avatars}"/>
+                                        <f:selectItem itemValue="#{pic.options}" itemLabel="#{pic.avatar.description}"/>
                                     </h:selectOneMenu>
                                 </div>
 

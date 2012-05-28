@@ -1,6 +1,5 @@
 package input;
 
-import at.ac.big.tuwien.ewa.picasa.Avatar;
 import java.util.List;
 
 public interface PicasaConnector {

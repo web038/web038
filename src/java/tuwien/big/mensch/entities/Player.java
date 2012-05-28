@@ -3,7 +3,7 @@
  */
 package tuwien.big.mensch.entities;
 
-import at.ac.big.tuwien.ewa.picasa.Avatar;
+import input.Avatar;
 import java.util.Collections;
 import java.util.List;
 import javax.faces.bean.ManagedBean;

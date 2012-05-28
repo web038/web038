@@ -23,6 +23,7 @@ public class Utility {
             ResourceBundle bundle = app.getResourceBundle(
                     ctx, bundleName);
             text = bundle.getString(key);
+            System.out.println(text); 
         } catch (MissingResourceException e) {
             return "???" + key + "???";
         }
