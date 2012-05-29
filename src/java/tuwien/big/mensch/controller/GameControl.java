@@ -205,6 +205,10 @@ public class GameControl implements Serializable{
     public Player getPlayer(int index) {
         return this.game.getPlayers().get(index);
     }
+    
+    public String getPlayerName(int i){
+        return getPlayer(i).getName();
+    }
 }
 
     
