@@ -169,7 +169,7 @@ public class LoginControl implements Serializable{
             return "Sie sind der 1.Spieler";
         }
         if (this.gc.getGamestate() == GameState.WAITING) {
-            return "Spieler " + this.gc.getPlayers().get(0) + " wartet schon auf Sie!";
+            return "Spieler " + this.gc.getPlayers().get(0).getName() + " wartet schon auf Sie!";
         }
         if(this.gc.getPlayers().contains(player)) { // funktioniert nicht.
             return "Das Spiel läuft bereits.";
