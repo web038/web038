@@ -120,6 +120,17 @@ table tbody {
     display: block;
 }
 
+#avatararea{
+    background-color: #fff;
+}
+
+#avatarPic{
+    width:50%;
+    height:50%;
+    margin-left: auto;
+    margin-left: auto;
+}
+
 #board div.fields {
     float:left;
     width:550px;

@@ -28,7 +28,7 @@ public class Player{
     private String password = null;
     private String birthday = null;
     private String sex = null;
-    private Avatar avatar = null;
+    private String avatar = null;
 
 
         
@@ -162,13 +162,15 @@ public class Player{
     public void setSex(String sex) {
         this.sex = sex;
     }
-    
-        public void setAvatar(Avatar avatar) {
-        this.avatar = avatar;
-    }
 
-    public Avatar getAvatar() {
+    public String getAvatar() {
         return avatar;
     }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
+    }
+    
+
     
 }

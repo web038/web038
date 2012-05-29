@@ -35,7 +35,7 @@
                         </ul>
                     </ui:insert>
                     <div id="user">
-                        <h:outputText value="Willkommen, Spieler #{lc.player}" rendered="#{lc.isPlayerLoggedIn()}"/>
+                        <h:outputText value="Willkommen, Spieler #{lc.player.name}" rendered="#{lc.isPlayerLoggedIn()}"/>
                         <h:outputText value="Willkommen, Gast" rendered="#{not(lc.isPlayerLoggedIn())}"/>
                     </div>
                 </div>
