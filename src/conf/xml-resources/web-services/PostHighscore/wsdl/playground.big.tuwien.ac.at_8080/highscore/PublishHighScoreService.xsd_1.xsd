@@ -1,0 +1,89 @@
+<?xml version='1.0' encoding='UTF-8'?><!-- Published by JAX-WS RI at http://jax-ws.dev.java.net. RI's version is JAX-WS RI 2.1.7-b01-. --><xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ssd="http://dbai.tuwien.ac.at/ssd" targetNamespace="http://dbai.tuwien.ac.at/ssd">
+	<xs:element name="game">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="info" type="ssd:infoType" minOccurs="0" />
+				<xs:element name="moves" type="ssd:movesType" minOccurs="0" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="infoType">
+		<xs:sequence>
+			<xs:element name="name" type="xs:string" minOccurs="0" />
+			<xs:element name="description" type="ssd:descType" minOccurs="0" />
+			<xs:element name="started" type="xs:dateTime" minOccurs="0" />
+			<xs:element name="players" minOccurs="0">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="screenname" minOccurs="0" maxOccurs="4">
+							<xs:complexType>
+								<xs:simpleContent>
+									<xs:extension base="xs:string">
+										<xs:attribute name="player" type="ssd:number1to4" />
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+					<xs:attribute name="number" type="ssd:number1to4" />
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="rounds" type="xs:integer" minOccurs="0" />
+			<xs:element name="winner" minOccurs="0">
+				<xs:complexType>
+					<xs:attribute name="player" type="ssd:number1to4" />
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="descType" mixed="true">
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="i" type="ssd:descType" />
+			<xs:element name="b" type="ssd:descType" />
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="movesType">
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="roll">
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="ssd:number1to6">
+							<xs:attribute name="player" type="ssd:number1to4" />
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="piece">
+				<xs:complexType>
+					<xs:attribute name="nr" type="ssd:number1to16" />
+					<xs:attribute name="player" type="ssd:number1to4" />
+					<xs:attribute name="field" type="ssd:number1to72" />
+				</xs:complexType>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+	<xs:simpleType name="number1to4">
+		<xs:restriction base="xs:integer">
+			<xs:minInclusive value="1" />
+			<xs:maxInclusive value="4" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="number1to6">
+		<xs:restriction base="xs:integer">
+			<xs:minInclusive value="1" />
+			<xs:maxInclusive value="6" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="number1to16">
+		<xs:restriction base="xs:integer">
+			<xs:minInclusive value="1" />
+			<xs:maxInclusive value="16" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="number1to72">
+		<xs:restriction base="xs:integer">
+			<xs:minInclusive value="1" />
+			<xs:maxInclusive value="72" />
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

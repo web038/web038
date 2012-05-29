@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jax-ws xmlns="http://www.netbeans.org/ns/jax-ws/1">
+  <services>
+    <service name="MyWebService">
+      <implementation-class>input.MyWebService</implementation-class>
+    </service>
+    <service name="PostHighscore">
+      <implementation-class>input.PostHighscore</implementation-class>
+      <wsdl-url>http://playground.big.tuwien.ac.at:8080/highscore/PublishHighScoreService?wsdl</wsdl-url>
+      <local-wsdl-file>playground.big.tuwien.ac.at_8080/highscore/PublishHighScoreService.wsdl</local-wsdl-file>
+      <service-name>PublishHighScoreService</service-name>
+      <port-name>PublishHighScorePort</port-name>
+      <package-name>service.posthighscore</package-name>
+      <catalog-file>catalog.xml</catalog-file>
+      <use-provider>false</use-provider>
+      <wsimport-options>
+        <wsimport-option>
+          <wsimport-option-name>extension</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>verbose</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>xnocompile</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+      </wsimport-options>
+    </service>
+  </services>
+  <clients/>
+  <jsr109>true</jsr109>
+</jax-ws>
