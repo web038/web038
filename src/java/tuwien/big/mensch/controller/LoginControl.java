@@ -3,15 +3,17 @@ package tuwien.big.mensch.controller;
 /*
  * controls login operations
  */
+import java.io.Serializable;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import tuwien.big.mensch.entities.Player;
 import tuwien.big.mensch.entities.RegisteredPlayerPool;
+import org.icefaces.application.PushRenderer;
 
 @ManagedBean(name = "lc")
 @SessionScoped
-public class LoginControl {
+public class LoginControl implements Serializable{
 
     @ManagedProperty(value = "#{player}")
     private Player player=null;
@@ -182,11 +184,10 @@ public class LoginControl {
     }
     /**
      * should the login screen be rendered
-     * @returns boolean true, if the game hasnot started yet or the user
-     *                      is already logged in
+     * @returns boolean true, if the game hasnot started yet 
      */
     public boolean showLogin() {
-        return !this.gc.isGameStarted() || isPlayerLoggedIn();
+        return !this.gc.isGameStarted() ;
     }
     
     /**

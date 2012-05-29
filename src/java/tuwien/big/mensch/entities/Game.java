@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-import org.icefaces.application.PushRenderer;
+import javax.print.attribute.Size2DSyntax;
 
 
 /**
@@ -23,7 +23,7 @@ import org.icefaces.application.PushRenderer;
  */
 public class Game implements Serializable{
 
-        public static final String GAME_RENDERER_NAME = "all";
+        
 
     /**
      * Current round of the game
@@ -93,11 +93,15 @@ public class Game implements Serializable{
     private List<Field> boardFields = null;
 
     public Game() {
-        this.players = new ArrayList<Player>();
     }
     
-    public void start() {
-        
+    /**
+     * start the game
+     * @param   players the players that want to play the game
+     */
+    public void start(List<Player> players) {
+       this.players=players;
+       
         if (players.size() < 1) {
             throw new IllegalArgumentException("At least one player is necessary to play.");
         }
@@ -106,7 +110,7 @@ public class Game implements Serializable{
             players.get(i).setRoute(routes.get(i));
             players.get(i).setPosition(routes.get(i).get(0));
         }
-        this.currentplayer = this.players.get(0);
+        this.currentplayer = players.get(0);
 
         boardFields = new ArrayList<Field>();
         for (int i = 0; i < 72; ++i) {
@@ -250,29 +254,15 @@ public class Game implements Serializable{
              */
             identifyLeader();
         }
-        if (currentplayer == players.get(0) && computeropponent == true) {
-            // It is the turn of the real player 
+        System.out.println("gewuerfelt wurde:"+score);
             if (score != 6 && !gameOver) {
-                // It is the turn of the computer-controlled opponent
-                currentplayer = players.get(1);
-                computeropponentscore = new ArrayList<Integer>();
-                int scoreopponent = -1;
-                do {
-                    scoreopponent = rollthedice();
-                    computeropponentscore.add(scoreopponent);
-                } while (scoreopponent == 6 && !gameOver);
-                currentplayer = players.get(0);
-                ++this.round;
-            } else {
-                computeropponentscore = new ArrayList<Integer>();
-            }
-        } else {
-
-            if (score != 6 && !gameOver) {
-                currentplayer = players.get((players.indexOf(currentplayer) + 1) % players.size());
-            }
-        }
-
+                // It is the turn of the next player
+                int index=players.indexOf(currentplayer);
+                currentplayer = players.get((index + 1) % players.size());
+                System.out.println("next player is "+currentplayer);
+                
+            } 
+       
         return score;
     }
 
@@ -385,12 +375,7 @@ public class Game implements Serializable{
     public List<Integer> getOpponentScore() {
         return computeropponentscore;
     }
-    /**
-     * adds a player to the game
-     */
-    public void addPlayer(Player player) {
-        this.players.add(player);
-        PushRenderer.addCurrentSession(Game.GAME_RENDERER_NAME);
-        System.out.println("this player was added: "+player.toString()); 
-    }
+    
+    
+    
 }
