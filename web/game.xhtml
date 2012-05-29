@@ -63,13 +63,19 @@
                             <ice:repeat value="#{lc.gc.players}" var="ppp" >
                                 <tr>
                                     <th>#{msg.player} #{lc.gc.players.indexOf(ppp)+1}</th>
-           
+
                                     <td>#{ppp}</td>
                                 </tr>
                             </ice:repeat>
                         </tbody>
                     </table>
+                    <div id="avatararea">
+                        <h:graphicImage id="avatarPic" title="#{msg.avatar}" value="#{lc.player.avatar}" alt="#{msg.avatar}"/>
+                    </div>
                 </div>
+
+
+
                 <div id="dicearea">
                     <hr class="accessibility" />
                     <h2 class="accessibility">#{msg.dice}</h2>
@@ -126,9 +132,8 @@
 
                         </div>
                         <div class="clearer"></div>
-
-
                     </h:panelGroup>
+                    
                 </div>
             </ui:define>
         </ui:composition>
