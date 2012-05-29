@@ -54,8 +54,9 @@ public class GameControl {
     public void startGame(Player player) {
         this.addPlayer(player);
         this.game.start(this.players);
-        
+       
         this.setGameState(GameState.STARTED);
+   
     }
     
     /**
@@ -175,6 +176,7 @@ public class GameControl {
         this.score = this.game.rollthedice();
         PushRenderer.addCurrentSession(GameControl.DICE_RENDERER_NAME);
         PushRenderer.render(GameControl.DICE_RENDERER_NAME);
+
     }
     
     /**

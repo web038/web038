@@ -45,6 +45,8 @@ public class LoginControl implements Serializable{
         player = getRpp().getRegisteredPlayer(name, password);
         if (player != null) {
             setShowloginfailed(false);
+            PushRenderer.addCurrentSession(GameControl.DICE_RENDERER_NAME);
+            PushRenderer.render(GameControl.DICE_RENDERER_NAME);
             if (gc.getGamestate() == GameState.NEW ) {
                 gc.init(player);
                 return "wait";

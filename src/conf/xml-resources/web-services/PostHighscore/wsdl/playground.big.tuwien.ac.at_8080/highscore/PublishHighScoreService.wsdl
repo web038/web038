@@ -1,0 +1,66 @@
+<?xml version='1.0' encoding='UTF-8'?><!-- Published by JAX-WS RI at http://jax-ws.dev.java.net. RI's version is JAX-WS RI 2.1.7-b01-. --><!-- edited with XMLSpy v2011 rel. 3 sp1 (x64) (http://www.altova.com) by pl (Vienna University of Technology, Business Informatics) --><wsdl:definitions xmlns:tns="http://big.tuwien.ac.at/we/highscore" xmlns:data="http://big.tuwien.ac.at/we/highscore/data" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:xs="http://www.w3.org/2001/XMLSchema" name="WE_Highscore_Service" targetNamespace="http://big.tuwien.ac.at/we/highscore">
+	<wsdl:import namespace="http://big.tuwien.ac.at/we/highscore/data" location="http://playground.big.tuwien.ac.at:8080/highscore/PublishHighScoreService?xsd=2" />
+	<wsdl:types>
+		<xs:schema targetNamespace="http://big.tuwien.ac.at/we/highscore">
+			<!-- Complex types -->
+			<xs:element name="Failure" type="tns:FailureType">
+				<xs:annotation>
+					<xs:documentation>
+						Failure dient zum strukturierten Retournieren von Fehlern die bei der 
+						Verarbeitung von Web Service Requests auftreten koennen.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:complexType name="FailureType">
+				<xs:sequence>
+					<xs:element name="Code" type="xs:string" />
+					<xs:element name="Reason" type="xs:string" />
+					<xs:element name="Detail" type="xs:string" minOccurs="0" />
+				</xs:sequence>
+			</xs:complexType>
+		</xs:schema>
+	</wsdl:types>
+	<wsdl:message name="Failure">
+		<wsdl:part name="failure" element="tns:Failure" />
+	</wsdl:message>
+	<wsdl:message name="PublishHighScoreRequestMsg">
+		<wsdl:part name="in" element="data:HighScoreRequest" />
+	</wsdl:message>
+	<wsdl:message name="PublishHighScoreResponseMsg">
+		<wsdl:part name="out" element="data:HighScoreResponse" />
+	</wsdl:message>
+	<wsdl:portType name="PublishHighScoreEndpoint">
+		<wsdl:operation name="PublishHighScore">
+			<wsdl:documentation>
+				Diese Operation dient zum Speichern eines WE Mensch Ärgere Dich Nicht Ergebnisses 
+				am WE Highscore Board
+			</wsdl:documentation>
+			<wsdl:input name="PublishHighScoreRequest" message="tns:PublishHighScoreRequestMsg" />
+			<wsdl:output name="PublishHighScoreResponse" message="tns:PublishHighScoreResponseMsg" />
+			<wsdl:fault name="Failure" message="tns:Failure" />
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="PublishHighScoreBinding" type="tns:PublishHighScoreEndpoint">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http" />
+		<wsdl:operation name="PublishHighScore">
+			<soap:operation soapAction="/PublishHighScore" style="document" />
+			<wsdl:input name="PublishHighScoreRequest">
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output name="PublishHighScoreResponse">
+				<soap:body use="literal" />
+			</wsdl:output>
+			<wsdl:fault name="Failure">
+				<soap:fault name="Failure" use="literal" />
+			</wsdl:fault>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="PublishHighScoreService">
+		<wsdl:documentation>
+			Ueber das WE Highscore Service koennen Ergebnisse des WE Mensch Aergere Dich Nicht Spiels auf das WE Highscore Board gepostet werden
+		</wsdl:documentation>
+		<wsdl:port name="PublishHighScorePort" binding="tns:PublishHighScoreBinding">
+			<soap:address location="http://playground.big.tuwien.ac.at:8080/highscore/PublishHighScoreService" />
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

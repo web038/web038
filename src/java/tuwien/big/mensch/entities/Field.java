@@ -9,7 +9,7 @@ import java.io.Serializable;
 /**
  * Class representing a field on the board
  */
-public class Field {
+public class Field{
     
     /**
      * Player occupying this field, i.e. 1, 2, 3, or 4, or -1 if this
