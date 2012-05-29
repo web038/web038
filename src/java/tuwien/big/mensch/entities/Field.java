@@ -4,6 +4,8 @@
  */
 package tuwien.big.mensch.entities;
 
+import java.io.Serializable;
+
 /**
  * Class representing a field on the board
  */

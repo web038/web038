@@ -17,7 +17,7 @@ import org.icefaces.application.PushRenderer;
 
 @ManagedBean(name = "gc")
 @ApplicationScoped
-public class GameControl implements Serializable{
+public class GameControl {
     private GameState gamestate=GameState.NEW;
     private Game game;
     private int score = 0;
@@ -33,7 +33,6 @@ public class GameControl implements Serializable{
     }
   
     public Player getCurrentPlayer() {
-        PushRenderer.render(GameControl.DICE_RENDERER_NAME);
         return game.getCurrentPlayer();
     }
 
@@ -56,6 +55,14 @@ public class GameControl implements Serializable{
         this.addPlayer(player);
         this.game.start(this.players);
         
+        this.setGameState(GameState.STARTED);
+    }
+    
+    /**
+     * restart the game
+     */
+    public void restartGame() {
+        this.game.start(this.players);
         this.setGameState(GameState.STARTED);
     }
     

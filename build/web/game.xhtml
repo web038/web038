@@ -13,7 +13,7 @@
             <ui:define name="navigation">
                 <ice:form>
                     <ul>
-                        <li><ice:commandLink value="#{msg.restart}" action="#{lc.gc.init}"/></li>
+                        <li><ice:commandLink value="#{msg.restart}" action="#{gc.restartGame()}"/></li>
                         <li><h:link outcome="index" value="#{msg.logout} (#{lc.name})"/></li>
                     </ul>
                 </ice:form>
@@ -75,21 +75,14 @@
                     <ice:form>
                         <c:if test="#{lc.gc.gameOver == false}">
 
-                            <ice:outputText value="#{gc.currentPlayer}"/>
-                            <c:if test="#{lc.player.equals(gc.currentPlayer)}">
-                                <h:commandLink  id="rollDiceCommand" action="#{lc.gc.rollDice()}">
-                                    <h:graphicImage  id="dice" title="#{msg.dicescore} #{lc.gc.score}" name="../img/wuerfel#{lc.gc.score}.png" alt="#{msg.dicescore} #{lc.gc.score}"/>
-                                    <f:ajax render="dice :round :leader :time :board"/>
-                                </h:commandLink>
-                            </c:if>
-                            <c:if test="#{not(lc.player.equals(gc.currentPlayer))}">
-                                <h:graphicImage id="dice" title="#{msg.dicescore} #{lc.gc.score}" name="../img/wuerfel#{lc.gc.score}.png" alt="#{msg.dicescore} #{lc.gc.score}"/>
-                            </c:if>
+                            <ice:outputText value="#{gc.currentPlayer}" />
+                            <ice:commandButton id="rollDiceCommand" value="wuerfeln" rendered="#{lc.player.equals(gc.currentPlayer)}" action="#{gc.rollDice()}">
+                                <ice:graphicImage title="#{msg.dicescore} #{gc.score}" url="img/wuerfel#{gc.score}.png" alt="#{msg.dicescore} #{gc.score}"/>
+                            </ice:commandButton>
+                            <ice:graphicImage rendered="#{not(lc.player.equals(gc.currentPlayer))}" title="#{msg.dicescore} #{gc.score}"  url="img/wuerfel#{gc.score}.png" alt="#{msg.dicescore} #{gc.score}"/>
 
                         </c:if>
-                        <c:if test="#{lc.gc.gameOver == true}">
-                            <h:graphicImage id="dice" title="#{msg.dicescore} #{lc.gc.score}" name="../img/wuerfel#{lc.gc.score}.png" alt="#{msg.dicescore} #{lc.gc.score}"/>
-                        </c:if>
+
                     </ice:form>
                 </div>
                 <div id="play_area">

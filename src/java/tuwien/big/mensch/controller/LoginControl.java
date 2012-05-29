@@ -14,13 +14,14 @@ import org.icefaces.application.PushRenderer;
 @ManagedBean(name = "lc")
 @SessionScoped
 public class LoginControl implements Serializable{
+    private static final long serialVersionUID = 1L;
 
     @ManagedProperty(value = "#{player}")
-    private Player player=null;
+    transient private Player player=null;
     @ManagedProperty(value = "#{rpp}")
-    private RegisteredPlayerPool rpp;
+    transient private RegisteredPlayerPool rpp;
     @ManagedProperty(value = "#{gc}")
-    private GameControl gc;
+    transient private GameControl gc;
     @ManagedProperty(value = "false")
     private boolean showloginfailed;
     @ManagedProperty(value = "false")   

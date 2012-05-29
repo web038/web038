@@ -21,7 +21,7 @@ import javax.print.attribute.Size2DSyntax;
 /**
  * Class representing a Mensch aergere Dich nicht game
  */
-public class Game implements Serializable{
+public class Game {
 
         
 
@@ -101,7 +101,7 @@ public class Game implements Serializable{
      */
     public void start(List<Player> players) {
        this.players=players;
-       
+       gameOver = false;
         if (players.size() < 1) {
             throw new IllegalArgumentException("At least one player is necessary to play.");
         }
@@ -254,7 +254,7 @@ public class Game implements Serializable{
              */
             identifyLeader();
         }
-        System.out.println("gewuerfelt wurde:"+score);
+        System.out.println(currentplayer+" wuerfelt "+score);
             if (score != 6 && !gameOver) {
                 // It is the turn of the next player
                 int index=players.indexOf(currentplayer);

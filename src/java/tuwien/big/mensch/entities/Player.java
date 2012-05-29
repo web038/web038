@@ -4,6 +4,7 @@
 package tuwien.big.mensch.entities;
 
 import input.Avatar;
+import java.io.Serializable;
 import java.util.Collections;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
@@ -11,7 +12,7 @@ import javax.faces.bean.NoneScoped;
 
 @ManagedBean(name = "player")
 @NoneScoped
-public class Player {
+public class Player{
 
     @Override
     public String toString() {
