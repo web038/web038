@@ -1,32 +1,39 @@
+
+
 /*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
 package input;
 
-import javax.jws.WebMethod;
-import javax.jws.WebParam;
-import javax.jws.WebResult;
-import javax.jws.WebService;
-import javax.jws.soap.SOAPBinding;
-import javax.xml.ws.Endpoint;
+import java.io.FileInputStream;
+import java.net.URL;
 
-
+import javax.xml.namespace.QName;
+import javax.xml.soap.MessageFactory;
+import javax.xml.soap.SOAPMessage;
+import javax.xml.ws.Dispatch;
+import javax.xml.ws.Service;
 
 /**
  *
  * @author web038
  */
-
-@WebService(name = "MyWebService")
-@SOAPBinding(style = SOAPBinding.Style.DOCUMENT)
 public class MyWebService {
-    
-	static {
-		System.setProperty("com.sun.xml.ws.fault.SOAPFaultBuilder.disableCaptureStackTrace", "true");
-	}
+
+    public static void callWebService() throws Exception {
+
         
-        
-	
-        
+        URL url = new URL("http://playground.big.tuwien.ac.at:8080/highscore/PublishHighScoreService?wsdl");
+        QName serviceName = new QName("urn:PublishHighScoreService", "PublishHighScoreService");
+        QName portName = new QName("urn:PublishHighScorePort", "PublishHighScorePort");
+        Service service = Service.create(url, serviceName);
+        Dispatch<SOAPMessage> dispatch = service.createDispatch(portName, SOAPMessage.class,
+                Service.Mode.MESSAGE);
+
+        SOAPMessage request = MessageFactory.newInstance().createMessage();
+
+        SOAPMessage response = dispatch.invoke(request);
+        response.writeTo(System.out);
+    }
 }
